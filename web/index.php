@@ -47,10 +47,12 @@ $app->get('/authorize', function () use ($app) {
     $em = $app['orm.em'];
     $repository = $em->getRepository(Client::class);
 
+    $client = $repository->find(1);
+
     return new JsonResponse(
         [
             'authorization_code' => 'code',
-            'repository' => str_replace('\\', '.', get_class($repository))
+            'client' => $client->getName()
         ]
     );
 });
