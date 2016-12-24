@@ -3,8 +3,9 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use ShieldSSO\Application;
-use Silex\Provider\TwigServiceProvider;
+use ShieldSSO\OAuth\Repository\ClientRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Silex\Provider\TwigServiceProvider;
 
 $app = new Application();
 $app['debug'] = true;
@@ -16,6 +17,8 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/authorize', function () {
+    $clientRepository = new ClientRepository;
+
     return new JsonResponse(['authorization_code' => 'code']);
 });
 
