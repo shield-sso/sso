@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace ShieldSSO\Entity;
 
 class Client
 {
     /** @var integer */
-    protected $id;
+    protected $id = null;
 
     /** @var string */
-    protected $name;
+    protected $name = null;
 
     /**
      * @return integer
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -21,7 +23,7 @@ class Client
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -29,7 +31,7 @@ class Client
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
