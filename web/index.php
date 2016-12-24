@@ -7,13 +7,10 @@ define('BASE_PATH', __DIR__ . '/../');
 require_once BASE_PATH . 'vendor/autoload.php';
 
 use ShieldSSO\Application;
-use ShieldSSO\Entity\Client;
-use ShieldSSO\OAuth\Repository\ClientRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use ShieldSSO\Provider\RoutingProvider;
 use Symfony\Component\Yaml\Yaml;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
-use Doctrine\ORM\EntityManager;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 
 $app = new Application;
@@ -36,25 +33,6 @@ $app->register(new DoctrineOrmServiceProvider, [
     ]
 ]);
 
-$app->get('/', function () use ($app) {
-    return $app->render('index.html.twig');
-});
-
-$app->get('/authorize', function () use ($app) {
-    $clientRepository = new ClientRepository;
-
-    /** @var EntityManager $em */
-    $em = $app['orm.em'];
-    $repository = $em->getRepository(Client::class);
-
-    $client = $repository->find(1);
-
-    return new JsonResponse(
-        [
-            'authorization_code' => 'code',
-            'client' => $client->getName()
-        ]
-    );
-});
+$app->mount('/', new RoutingProvider);
 
 $app->run();
