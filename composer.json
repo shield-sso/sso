@@ -1,0 +1,15 @@
+{
+  "name": "shield-sso/sso",
+  "description": "Single Sign On",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "silex/silex": "^2.0",
+    "twig/twig": "^1.30"
+  },
+  "autoload": {
+    "psr-4": {
+      "ShieldSSO\\": "src/"
+    }
+  }
+}
