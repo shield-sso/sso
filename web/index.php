@@ -1,44 +1,38 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+define('BASE_PATH', __DIR__ . '/../');
 
-use Doctrine\ORM\EntityManager;
+require_once BASE_PATH . 'vendor/autoload.php';
+
 use ShieldSSO\Application;
 use ShieldSSO\Entity\Client;
 use ShieldSSO\OAuth\Repository\ClientRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Silex\Provider\DoctrineServiceProvider;
+use Symfony\Component\Yaml\Yaml;
 use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\DoctrineServiceProvider;
+use Doctrine\ORM\EntityManager;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 
-$app = new Application();
-$app['debug'] = true;
+$app = new Application;
 
-$app->register(new TwigServiceProvider, ['twig.path' => __DIR__ . '/../resources/views']);
-$app->register(new DoctrineServiceProvider, [
-    'db.options' => [
-        'driver' => 'pdo_pgsql',
-        'host' => '127.0.0.1',
-        'port' => 5432,
-        'dbname' => 'shieldsso_sso',
-        'user' => '',
-        'password' => ''
-    ]
-]);
-$app->register(new DoctrineOrmServiceProvider,
-    [
-        'orm.proxies_dir' => __DIR__ . '/../var/cache/proxy',
-        'orm.em.options' => [
-            'mappings' => [
-                [
-                    'type' => 'simple_yml',
-                    'namespace' => 'ShieldSSO\Entity',
-                    'path' => __DIR__ . '/../resources/config/doctrine_mapping',
-                ]
+$config = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/config.yml'));
+$config['parameters'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
+
+$app->register(new TwigServiceProvider, ['twig.path' => BASE_PATH . $config['twig']['views_path']]);
+$app->register(new DoctrineServiceProvider, ['db.options' => $config['parameters']['database']]);
+$app->register(new DoctrineOrmServiceProvider, [
+    'orm.proxies_dir' => BASE_PATH . $config['doctrine']['proxies_path'],
+    'orm.em.options' => [
+        'mappings' => [
+            [
+                'type' => $config['doctrine']['mapping']['type'],
+                'namespace' => $config['doctrine']['mapping']['namespace'],
+                'path' => BASE_PATH . $config['doctrine']['mapping']['path'],
             ]
         ]
     ]
-);
+]);
 
 $app->get('/', function () use ($app) {
     return $app->render('index.html.twig');

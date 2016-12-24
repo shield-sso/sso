@@ -1,0 +1,9 @@
+twig:
+  views_path: 'resources/views'
+
+doctrine:
+  proxies_path: 'var/cache/proxy'
+  mapping:
+    type: 'simple_yml'
+    namespace: 'ShieldSSO\Entity'
+    path: 'resources/config/doctrine_mapping'

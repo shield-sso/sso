@@ -2,3 +2,4 @@
 /vendor
 /resources/keys/*.key
 /web/.htaccess
+/resources/config/parameters.yml
