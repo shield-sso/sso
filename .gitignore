@@ -1,2 +1,3 @@
 .idea/
 /vendor
+/resources/keys/*.key
