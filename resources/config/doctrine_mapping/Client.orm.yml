@@ -1,0 +1,18 @@
+ShieldSSO\Entity\Client:
+  type: entity
+  table: sso_oauth_client
+  repositoryClass: ShieldSSO\Repository\ClientRepository
+
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+
+  fields:
+    name:
+      name: name
+      type: string
+      length: 255
+      unique: true
+      nullable: false
