@@ -14,7 +14,7 @@ class IndexController
      *
      * @return Response
      */
-    public function indexAction(Application $app)
+    public function indexAction(Application $app): Response
     {
         return $app->render('index.html.twig');
     }

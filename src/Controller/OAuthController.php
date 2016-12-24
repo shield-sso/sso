@@ -8,7 +8,6 @@ use ShieldSSO\Application;
 use ShieldSSO\Entity\Client;
 use ShieldSSO\Repository\ClientRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManager;
 
 class OAuthController
@@ -16,9 +15,9 @@ class OAuthController
     /**
      * @param Application $app
      *
-     * @return Response
+     * @return JsonResponse
      */
-    public function authorizeAction(Application $app)
+    public function authorizeAction(Application $app): JsonResponse
     {
         /** @var EntityManager $entityManager */
         /** @var ClientRepository $repository */
@@ -27,6 +26,15 @@ class OAuthController
         $entityManager = $app['orm.em'];
         $repository = $entityManager->getRepository(Client::class);
         $client = $repository->find(1);
+
+        if ($client == null) {
+            $client = new Client;
+            $client->setName('a');
+            $client->setRedirectUri('http://client-a.local/oauth');
+
+            $repository->persist($client);
+            $repository->flush();
+        }
 
         return new JsonResponse(
             [

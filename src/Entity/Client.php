@@ -9,6 +9,9 @@ class Client extends AbstractEntity
     /** @var string */
     protected $name = null;
 
+    /** @var string */
+    protected $redirectUri = null;
+
     /**
      * @param string $name
      */
@@ -18,10 +21,26 @@ class Client extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    /**
+     * @param string $redirectUri
+     */
+    public function setRedirectUri(string $redirectUri): void
+    {
+        $this->redirectUri = $redirectUri;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRedirectUri(): ?string
+    {
+        return $this->redirectUri;
     }
 }

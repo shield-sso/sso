@@ -15,7 +15,7 @@ class RoutingProvider implements ControllerProviderInterface
     /**
      * @inheritdoc
      */
-    public function connect(Application $app)
+    public function connect(Application $app): ControllerCollection
     {
         /** @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
