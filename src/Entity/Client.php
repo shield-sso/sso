@@ -6,11 +6,14 @@ namespace ShieldSSO\Entity;
 
 class Client extends AbstractEntity
 {
-    /** @var string */
-    protected $name = null;
+    /** @var string|null */
+    private $name = null;
 
-    /** @var string */
-    protected $redirectUri = null;
+    /** @var string|null */
+    private $secret = null;
+
+    /** @var string|null */
+    private $redirectUri = null;
 
     /**
      * @param string $name
@@ -26,6 +29,22 @@ class Client extends AbstractEntity
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    /**
+     * @param string $secret
+     */
+    public function setSecret(string $secret): void
+    {
+        $this->secret = $secret;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSecret(): ?string
+    {
+        return $this->secret;
     }
 
     /**

@@ -29,6 +29,25 @@ class ClientRepository extends AbstractRepository
     }
 
     /**
+     * @param string $name
+     *
+     * @return Client|null
+     */
+    public function getByName(string $name): ?Client
+    {
+        $query = $this->createQueryBuilder('client')
+            ->where('client.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery();
+
+        try {
+            return $query->getSingleResult();
+        } catch (NoResultException $exception) {
+            return null;
+        }
+    }
+
+    /**
      * @param Client $client
      */
     public function persist(Client $client): void

@@ -16,6 +16,11 @@ ShieldSSO\Entity\Client:
       length: 255
       unique: true
       nullable: false
+    secret:
+      name: secret
+      type: string
+      length: 255
+      nullable: false
     redirectUri:
       name: redirect_uri
       type: string

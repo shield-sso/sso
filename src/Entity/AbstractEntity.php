@@ -6,7 +6,7 @@ namespace ShieldSSO\Entity;
 
 abstract class AbstractEntity
 {
-    /** @var integer */
+    /** @var integer|null */
     protected $id = null;
 
     /**
@@ -18,7 +18,7 @@ abstract class AbstractEntity
     }
 
     /**
-     * @return integer
+     * @return integer|null
      */
     public function getId(): ?int
     {

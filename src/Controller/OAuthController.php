@@ -30,6 +30,7 @@ class OAuthController
         if ($client == null) {
             $client = new Client;
             $client->setName('a');
+            $client->setSecret(password_hash('pass', PASSWORD_BCRYPT, ['cost' => 12]));
             $client->setRedirectUri('http://client-a.local/oauth');
 
             $repository->persist($client);
