@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace ShieldSSO\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Client extends AbstractEntity
 {
     /** @var string|null */
@@ -14,6 +16,9 @@ class Client extends AbstractEntity
 
     /** @var string|null */
     private $redirectUri = null;
+
+    /** @var ArrayCollection */
+    private $accessTokens;
 
     /**
      * @param string $name
@@ -61,5 +66,29 @@ class Client extends AbstractEntity
     public function getRedirectUri(): ?string
     {
         return $this->redirectUri;
+    }
+
+    /**
+     * @param AccessToken $accessToken
+     */
+    public function addAccessToken(AccessToken $accessToken): void
+    {
+        $this->accessTokens->add($accessToken);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAccessTokens(): ArrayCollection
+    {
+        return $this->accessTokens;
+    }
+
+    /**
+     * @param AccessToken $accessToken
+     */
+    public function removeAccessToken(AccessToken $accessToken): void
+    {
+        $this->accessTokens->removeElement($accessToken);
     }
 }

@@ -16,3 +16,8 @@ ShieldSSO\Entity\Scope:
       length: 255
       unique: true
       nullable: false
+
+  manyToMany:
+    accessTokens:
+      targetEntity: AccessToken
+      mappedBy: scopes

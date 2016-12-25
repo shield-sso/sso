@@ -27,3 +27,8 @@ ShieldSSO\Entity\Client:
       length: 255
       unique: true
       nullable: false
+
+  oneToMany:
+    accessTokens:
+      targetEntity: AccessToken
+      mappedBy: client

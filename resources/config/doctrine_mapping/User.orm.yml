@@ -21,3 +21,8 @@ ShieldSSO\Entity\User:
       type: string
       length: 255
       nullable: false
+
+  oneToMany:
+    accessTokens:
+      targetEntity: AccessToken
+      mappedBy: user
