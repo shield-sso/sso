@@ -8,21 +8,43 @@ use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use ShieldSSO\Entity\AccessToken as AppAccessToken;
+use ShieldSSO\Entity\Scope;
 use ShieldSSO\OAuth\Entity\AccessToken;
-use ShieldSSO\OAuth\Entity\Client;
-use ShieldSSO\Repository\AccessTokenRepository as AppRepository;
+use ShieldSSO\Repository\AccessTokenRepository as AppAccessTokenRepository;
+use ShieldSSO\Repository\ClientRepository as AppClientRepository;
+use ShieldSSO\Repository\UserRepository as AppUserRepository;
+use ShieldSSO\Repository\ScopeRepository as AppScopeRepository;
 
 class AccessTokenRepository implements AccessTokenRepositoryInterface
 {
-    /** @var AppRepository */
-    private $appRepository;
+    /** @var AppAccessTokenRepository */
+    private $appAccessTokenRepository;
+
+    /** @var AppClientRepository */
+    private $appClientRepository;
+
+    /** @var AppUserRepository */
+    private $appUserRepository;
+
+    /** @var AppScopeRepository */
+    private $appScopeRepository;
 
     /**
-     * @param AppRepository $appRepository
+     * @param AppAccessTokenRepository $appAccessTokenRepository
+     * @param AppClientRepository $appClientRepository
+     * @param AppUserRepository $appUserRepository
+     * @param AppScopeRepository $appScopeRepository
      */
-    public function __construct(AppRepository $appRepository)
+    public function __construct(
+        AppAccessTokenRepository $appAccessTokenRepository,
+        AppClientRepository $appClientRepository,
+        AppUserRepository $appUserRepository,
+        AppScopeRepository $appScopeRepository)
     {
-        $this->appRepository = $appRepository;
+        $this->appAccessTokenRepository = $appAccessTokenRepository;
+        $this->appClientRepository = $appClientRepository;
+        $this->appUserRepository = $appUserRepository;
+        $this->appScopeRepository = $appScopeRepository;
     }
 
     /**
@@ -45,12 +67,28 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
         $appAccessToken->setCode($accessTokenEntity->getIdentifier());
         $appAccessToken->setExpiryDateTime($accessTokenEntity->getExpiryDateTime());
 
-        /** @var Client $client */
-        $client = $accessTokenEntity->getClient();
+        $client = $this->appClientRepository->getByName($accessTokenEntity->getClient()->getName());
+        $appAccessToken->setClient($client);
+        $client->addAccessToken($appAccessToken);
 
-        //client
-        //user
-        //scopes
+        $user = $this->appUserRepository->getByLogin($accessTokenEntity->getUserIdentifier());
+        $appAccessToken->setUser($user);
+        $user->addAccessToken($appAccessToken);
+
+        $scopeNames = [];
+        foreach ($accessTokenEntity->getScopes() as $scope) {
+            $scopeNames[] = $scope->getIdentifier();
+        }
+
+        $scopes = $this->appScopeRepository->getByNames($scopeNames);
+        foreach ($scopes as $scope) {
+            /** @var Scope $scope */
+            $appAccessToken->addScope($scope);
+            $scope->addAccessToken($appAccessToken);
+        }
+
+        $this->appAccessTokenRepository->persist($appAccessToken);
+        $this->appAccessTokenRepository->flush();
     }
 
     /**
@@ -58,11 +96,11 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
      */
     public function revokeAccessToken($code): void
     {
-        $accessToken = $this->appRepository->getByCode($code);
+        $accessToken = $this->appAccessTokenRepository->getByCode($code);
         $accessToken->setRevoked(true);
 
-        $this->appRepository->persist($accessToken);
-        $this->appRepository->flush();
+        $this->appAccessTokenRepository->persist($accessToken);
+        $this->appAccessTokenRepository->flush();
     }
 
     /**
@@ -70,7 +108,7 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
      */
     public function isAccessTokenRevoked($code): bool
     {
-        $accessToken = $this->appRepository->getByCode($code);
+        $accessToken = $this->appAccessTokenRepository->getByCode($code);
 
         return $accessToken->isRevoked();
     }

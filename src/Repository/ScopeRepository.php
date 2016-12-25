@@ -48,6 +48,21 @@ class ScopeRepository extends AbstractRepository
     }
 
     /**
+     * @param string[] $names
+     *
+     * @return array
+     */
+    public function getByNames(array $names)
+    {
+        $query = $this->createQueryBuilder('scope')
+            ->where('scope.name IN (:names)')
+            ->setParameter('names', $names)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * @param Scope $scope
      */
     public function persist(Scope $scope): void
