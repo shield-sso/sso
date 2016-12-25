@@ -15,6 +15,9 @@ class AccessToken extends AbstractEntity
     /** @var DateTimeInterface|null */
     private $expiryDateTime = null;
 
+    /** @var boolean */
+    private $revoked = false;
+
     /** @var User|null */
     private $user = null;
 
@@ -63,6 +66,22 @@ class AccessToken extends AbstractEntity
     public function getExpiryDateTime(): ?DateTimeInterface
     {
         return $this->expiryDateTime;
+    }
+
+    /**
+     * @param boolean $revoked
+     */
+    public function setRevoked(bool $revoked): void
+    {
+        $this->revoked = $revoked;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRevoked(): bool
+    {
+        return $this->revoked;
     }
 
     /**

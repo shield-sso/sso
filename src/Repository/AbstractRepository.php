@@ -17,5 +17,8 @@ abstract class AbstractRepository extends EntityRepository
         foreach ($this->entitiesToFlush as $entity) {
             $this->_em->flush($entity);
         }
+
+        unset($this->entitiesToFlush);
+        $this->entitiesToFlush = [];
     }
 }

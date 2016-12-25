@@ -20,6 +20,10 @@ ShieldSSO\Entity\AccessToken:
       name: expiry_date_time
       type: datetime
       nullable: false
+    revoked:
+      name: revoked
+      type: boolean
+      nullable: false
 
   manyToOne:
     user:
