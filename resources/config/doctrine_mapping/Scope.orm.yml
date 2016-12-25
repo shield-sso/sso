@@ -1,0 +1,18 @@
+ShieldSSO\Entity\Scope:
+  type: entity
+  table: sso_oauth_scope
+  repositoryClass: ShieldSSO\Repository\ScopeRepository
+
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+
+  fields:
+    name:
+      name: name
+      type: string
+      length: 255
+      unique: true
+      nullable: false
