@@ -53,5 +53,6 @@ class ClientRepository extends AbstractRepository
     public function persist(Client $client): void
     {
         $this->_em->persist($client);
+        $this->entitiesToFlush[] = $client;
     }
 }

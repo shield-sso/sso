@@ -53,5 +53,6 @@ class ScopeRepository extends AbstractRepository
     public function persist(Scope $scope): void
     {
         $this->_em->persist($scope);
+        $this->entitiesToFlush[] = $scope;
     }
 }
