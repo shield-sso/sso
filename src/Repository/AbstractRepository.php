@@ -12,6 +12,16 @@ abstract class AbstractRepository extends EntityRepository
     /** @var AbstractEntity */
     protected $entitiesToFlush = [];
 
+    /**
+     * @param int $id
+     *
+     * @return object
+     */
+    public function getProxy(int $id)
+    {
+        return $this->_em->getReference($this->_entityName, $id);
+    }
+
     public function flush(): void
     {
         foreach ($this->entitiesToFlush as $entity) {

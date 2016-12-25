@@ -43,6 +43,7 @@ class ClientRepository implements ClientRepositoryInterface
         $client = new Client;
         $client->setName($appClient->getName());
         $client->setRedirectUri($appClient->getRedirectUri());
+        $client->setAppEntityId($appClient->getId());
 
         return $client;
     }

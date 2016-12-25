@@ -7,7 +7,9 @@ namespace ShieldSSO\OAuth\Repository;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
+use ShieldSSO\Entity\AccessToken as AppAccessToken;
 use ShieldSSO\OAuth\Entity\AccessToken;
+use ShieldSSO\OAuth\Entity\Client;
 use ShieldSSO\Repository\AccessTokenRepository as AppRepository;
 
 class AccessTokenRepository implements AccessTokenRepositoryInterface
@@ -39,7 +41,16 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
      */
     public function persistNewAccessToken(AccessTokenEntityInterface $accessTokenEntity): void
     {
-        
+        $appAccessToken = new AppAccessToken;
+        $appAccessToken->setCode($accessTokenEntity->getIdentifier());
+        $appAccessToken->setExpiryDateTime($accessTokenEntity->getExpiryDateTime());
+
+        /** @var Client $client */
+        $client = $accessTokenEntity->getClient();
+
+        //client
+        //user
+        //scopes
     }
 
     /**
