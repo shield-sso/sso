@@ -6,7 +6,6 @@ namespace ShieldSSO\OAuth\Repository;
 
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
-use ShieldSSO\Entity\Client as AppClient;
 use ShieldSSO\OAuth\Entity\Client;
 use ShieldSSO\Repository\ClientRepository as AppRepository;
 
@@ -32,10 +31,12 @@ class ClientRepository implements ClientRepositoryInterface
         $clientSecret = null,
         $mustValidateSecret = true): ClientEntityInterface
     {
-        /** @var AppClient $appClient */
-        $appClient = $this->appRepository->getByName($clientIdentifier);
+        if ($grantType != 'authorization_code') {
+            return null;
+        }
 
-        if ($mustValidateSecret && !password_verify($clientSecret, $appClient->getSecret())) {
+        $appClient = $this->appRepository->getByName($clientIdentifier);
+        if (!$appClient || ($mustValidateSecret && !password_verify($clientSecret, $appClient->getSecret()))) {
             return null;
         }
 
