@@ -8,19 +8,38 @@ use League\OAuth2\Server\Entities\ScopeEntityInterface;
 
 class Scope implements ScopeEntityInterface
 {
+    /** @var string|null */
+    private $name = null;
+
     /**
-     * @inheritdoc
+     * @param string $name
      */
-    public function getIdentifier(): string
+    public function setName(string $name): void
     {
-        return '';
+        $this->name = $name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 
     /**
      * @inheritdoc
      */
-    function jsonSerialize(): array
+    public function getIdentifier(): string
     {
-        return [];
+        return $this->name;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    function jsonSerialize(): string
+    {
+        return $this->name;
     }
 }
