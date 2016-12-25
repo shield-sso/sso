@@ -8,30 +8,11 @@ use League\OAuth2\Server\Entities\ClientEntityInterface;
 
 class Client implements ClientEntityInterface
 {
-    /** @var integer */
-    private $appEntityId;
-
     /** @var string|null */
     private $name = null;
 
     /** @var string|null */
     private $redirectUri = null;
-
-    /**
-     * @param integer $appEntityId
-     */
-    public function setAppEntityId(int $appEntityId): void
-    {
-        $this->appEntityId = $appEntityId;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getAppEntityId(): int
-    {
-        return $this->appEntityId;
-    }
 
     /**
      * @param string $name

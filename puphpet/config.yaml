@@ -235,6 +235,7 @@ php:
             - intl
             - xml
             - mbstring
+            - sqlite
         pear: {  }
         pecl: {  }
     ini:

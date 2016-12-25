@@ -15,6 +15,15 @@ class Scope extends AbstractEntity
     private $accessTokens;
 
     /**
+     * @inheritdoc
+     */
+    public function __construct(int $id = null)
+    {
+        parent::__construct($id);
+        $this->accessTokens = new ArrayCollection;
+    }
+
+    /**
      * @param string $name
      */
     public function setName(string $name): void
