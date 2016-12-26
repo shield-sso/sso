@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc04b4606bea6ee3ac89d26400eca572",
+    "content-hash": "b8e73d6ef9fa2c7a5c0cfec1ffc52748",
     "packages": [
         {
             "name": "dflydev/doctrine-orm-service-provider",
@@ -661,48 +661,6 @@
                 "orm"
             ],
             "time": "2016-12-18T15:42:34+00:00"
-        },
-        {
-            "name": "knplabs/console-service-provider",
-            "version": "2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/ConsoleServiceProvider.git",
-                "reference": "ac3498030bb54ec1d7e79043fe984fc3aeb48bfb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/ConsoleServiceProvider/zipball/ac3498030bb54ec1d7e79043fe984fc3aeb48bfb",
-                "reference": "ac3498030bb54ec1d7e79043fe984fc3aeb48bfb",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "symfony/console": "~2.3|~3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Knp\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Knplabs",
-                    "homepage": "http://knplabs.com"
-                }
-            ],
-            "description": "console service provider for Silex",
-            "homepage": "http://knplabs.com",
-            "keywords": [
-                "console",
-                "silex"
-            ],
-            "time": "2016-06-01T05:51:46+00:00"
         },
         {
             "name": "lcobucci/jwt",

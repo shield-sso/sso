@@ -3,23 +3,32 @@
 declare(strict_types = 1);
 
 define('BASE_PATH', __DIR__ . '/../');
+
 require_once BASE_PATH . 'vendor/autoload.php';
 
-$app = new ShieldSSO\Application;
-$app['config'] = Symfony\Component\Yaml\Yaml::parse(
-    file_get_contents(BASE_PATH . 'resources/config/config.yml')
-);
-$app['parameters'] = Symfony\Component\Yaml\Yaml::parse(
-    file_get_contents(BASE_PATH . 'resources/config/parameters.yml')
-);
+use ShieldSSO\Application;
+use ShieldSSO\Provider\RoutingProvider;
+use ShieldSSO\Provider\AccessTokenRepositoryProvider;
+use ShieldSSO\Provider\AuthorizationCodeRepositoryProvider;
+use ShieldSSO\Provider\ClientRepositoryProvider;
+use ShieldSSO\Provider\RefreshTokenRepositoryProvider;
+use ShieldSSO\Provider\ScopeRepositoryProvider;
+use ShieldSSO\Provider\UserRepositoryProvider;
+use ShieldSSO\Provider\OAuthServerProvider;
+use Symfony\Component\Yaml\Yaml;
+use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\DoctrineServiceProvider;
+use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
+use Silex\Provider\Psr7ServiceProvider;
 
-$app->register(new Silex\Provider\TwigServiceProvider, [
-    'twig.path' => BASE_PATH . $app['config']['twig']['views_path']
-]);
-$app->register(new Silex\Provider\DoctrineServiceProvider, [
-    'db.options' => $app['parameters']['database']
-]);
-$app->register(new Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider, [
+$app = new Application;
+
+$app['config'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/config.yml'));
+$app['parameters'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
+
+$app->register(new TwigServiceProvider, ['twig.path' => BASE_PATH . $app['config']['twig']['views_path']]);
+$app->register(new DoctrineServiceProvider, ['db.options' => $app['parameters']['database']]);
+$app->register(new DoctrineOrmServiceProvider, [
     'orm.proxies_dir' => BASE_PATH . $app['config']['doctrine']['proxies_path'],
     'orm.em.options' => [
         'mappings' => [
@@ -32,16 +41,16 @@ $app->register(new Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider, [
     ]
 ]);
 
-$app->register(new ShieldSSO\Provider\UserRepositoryProvider);
-$app->register(new ShieldSSO\Provider\ScopeRepositoryProvider);
-$app->register(new ShieldSSO\Provider\ClientRepositoryProvider);
-$app->register(new ShieldSSO\Provider\AuthorizationCodeRepositoryProvider);
-$app->register(new ShieldSSO\Provider\AccessTokenRepositoryProvider);
-$app->register(new ShieldSSO\Provider\RefreshTokenRepositoryProvider);
+$app->register(new OAuthServerProvider);
+$app->register(new Psr7ServiceProvider);
 
-$app->register(new ShieldSSO\Provider\OAuthServerProvider);
+$app->register(new UserRepositoryProvider);
+$app->register(new ScopeRepositoryProvider);
+$app->register(new ClientRepositoryProvider);
+$app->register(new AuthorizationCodeRepositoryProvider);
+$app->register(new AccessTokenRepositoryProvider);
+$app->register(new RefreshTokenRepositoryProvider);
 
-$app->register(new Silex\Provider\Psr7ServiceProvider);
-$app->mount('/', new ShieldSSO\Provider\RoutingProvider);
+$app->mount('/', new RoutingProvider);
 
 $app->run();
