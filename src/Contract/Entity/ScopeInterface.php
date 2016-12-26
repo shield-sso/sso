@@ -32,4 +32,19 @@ interface ScopeInterface extends EntityInterface
      * @param AccessTokenInterface $accessToken
      */
     public function removeAccessToken(AccessTokenInterface $accessToken): void;
+
+    /**
+     * @param AuthorizationCodeInterface $authorizationCode
+     */
+    public function addAuthorizationCode(AuthorizationCodeInterface $authorizationCode): void;
+
+    /**
+     * @return CollectionInterface
+     */
+    public function getAuthorizationCodes(): CollectionInterface;
+
+    /**
+     * @param AuthorizationCodeInterface $authorizationCode
+     */
+    public function removeAuthorizationCode(AuthorizationCodeInterface $authorizationCode): void;
 }

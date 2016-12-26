@@ -26,3 +26,6 @@ ShieldSSO\Entity\User:
     accessTokens:
       targetEntity: AccessToken
       mappedBy: user
+    authorizationCodes:
+      targetEntity: AuthorizationCode
+      mappedBy: user

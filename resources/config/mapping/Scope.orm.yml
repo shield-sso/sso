@@ -21,3 +21,6 @@ ShieldSSO\Entity\Scope:
     accessTokens:
       targetEntity: AccessToken
       mappedBy: scopes
+    authorizationCodes:
+      targetEntity: AuthorizationCode
+      mappedBy: scopes

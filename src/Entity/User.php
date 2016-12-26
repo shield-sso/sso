@@ -7,6 +7,7 @@ namespace ShieldSSO\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 use ShieldSSO\Contract\Entity\AccessTokenInterface;
+use ShieldSSO\Contract\Entity\AuthorizationCodeInterface;
 use ShieldSSO\Contract\Entity\UserInterface;
 
 class User extends AbstractEntity implements UserInterface
@@ -20,6 +21,9 @@ class User extends AbstractEntity implements UserInterface
     /** @var CollectionInterface */
     private $accessTokens;
 
+    /** @var CollectionInterface */
+    private $authorizationCodes;
+
     /**
      * @inheritdoc
      */
@@ -27,6 +31,7 @@ class User extends AbstractEntity implements UserInterface
     {
         parent::__construct($id);
         $this->accessTokens = new ArrayCollection;
+        $this->authorizationCodes = new ArrayCollection;
     }
 
     /**
@@ -83,5 +88,29 @@ class User extends AbstractEntity implements UserInterface
     public function removeAccessToken(AccessTokenInterface $accessToken): void
     {
         $this->accessTokens->removeElement($accessToken);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function addAuthorizationCode(AuthorizationCodeInterface $authorizationCode): void
+    {
+        $this->authorizationCodes->add($authorizationCode);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthorizationCodes(): CollectionInterface
+    {
+        return $this->authorizationCodes;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeAuthorizationCode(AuthorizationCodeInterface $authorizationCode): void
+    {
+        $this->authorizationCodes->removeElement($authorizationCode);
     }
 }
