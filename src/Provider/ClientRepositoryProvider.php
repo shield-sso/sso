@@ -6,6 +6,9 @@ namespace ShieldSSO\Provider;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use ShieldSSO\Contract\Repository\ClientRepositoryInterface;
+use ShieldSSO\Entity\Client;
 
 class ClientRepositoryProvider implements ServiceProviderInterface
 {
@@ -14,8 +17,14 @@ class ClientRepositoryProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $container['service'] = function ($container) {
-            return $container;
+        $container['repository.client'] = function (Container $container): ClientRepositoryInterface {
+            /** @var EntityManagerInterface $entityManager */
+            /** @var ClientRepositoryInterface $repository */
+
+            $entityManager = $container['orm.em'];
+            $repository = $entityManager->getRepository(Client::class);
+
+            return $repository;
         };
     }
 }
