@@ -51,6 +51,7 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
         $accessTokenCode = $refreshTokenEntity->getAccessToken()->getIdentifier();
         $appAccessToken = $this->appAccessTokenRepository->getByCode($accessTokenCode);
         $appRefreshToken->setAccessToken($appAccessToken);
+        $appAccessToken->setRefreshToken($appRefreshToken);
 
         $this->appRefreshTokenRepository->persist($appRefreshToken);
         $this->appRefreshTokenRepository->flush();
