@@ -5,18 +5,18 @@ declare(strict_types = 1);
 namespace ShieldSSO\Test\OAuth\Repository;
 
 use DateTime;
+use ShieldSSO\Contract\Repository\AccessTokenRepositoryInterface;
+use ShieldSSO\Contract\Repository\ClientRepositoryInterface;
+use ShieldSSO\Contract\Repository\ScopeRepositoryInterface;
+use ShieldSSO\Contract\Repository\UserRepositoryInterface;
 use ShieldSSO\Entity\AccessToken;
-use ShieldSSO\OAuth\Entity\AccessToken as OAuthAccessToken;
 use ShieldSSO\Entity\Client;
-use ShieldSSO\OAuth\Entity\Client as OAuthClient;
 use ShieldSSO\Entity\Scope;
-use ShieldSSO\OAuth\Entity\Scope as OAuthScope;
 use ShieldSSO\Entity\User;
+use ShieldSSO\OAuth\Entity\AccessToken as OAuthAccessToken;
+use ShieldSSO\OAuth\Entity\Client as OAuthClient;
+use ShieldSSO\OAuth\Entity\Scope as OAuthScope;
 use ShieldSSO\OAuth\Repository\AccessTokenRepository as OAuthAccessTokenRepository;
-use ShieldSSO\Repository\AccessTokenRepository;
-use ShieldSSO\Repository\ClientRepository;
-use ShieldSSO\Repository\ScopeRepository;
-use ShieldSSO\Repository\UserRepository;
 use ShieldSSO\Test\AbstractRepositoryTest;
 
 class AccessTokenRepositoryTest extends AbstractRepositoryTest
@@ -29,7 +29,7 @@ class AccessTokenRepositoryTest extends AbstractRepositoryTest
         $scopeB = new Scope;
         $scopeB->setName('B');
 
-        /** @var ScopeRepository $scopeRepository */
+        /** @var ScopeRepositoryInterface $scopeRepository */
         $scopeRepository = parent::$entityManager->getRepository(Scope::class);
         $scopeRepository->persist($scopeA);
         $scopeRepository->persist($scopeB);
@@ -43,7 +43,7 @@ class AccessTokenRepositoryTest extends AbstractRepositoryTest
         $client->setSecret(password_hash('secret', PASSWORD_BCRYPT, ['cost' => 12]));
         $client->setRedirectUri('http://client-a.local/oauth');
 
-        /** @var ClientRepository $clientRepository */
+        /** @var ClientRepositoryInterface $clientRepository */
         $clientRepository = parent::$entityManager->getRepository(Client::class);
         $clientRepository->persist($client);
         $clientRepository->flush();
@@ -54,14 +54,14 @@ class AccessTokenRepositoryTest extends AbstractRepositoryTest
         $user->setLogin('User');
         $user->setPassword(password_hash('password', PASSWORD_BCRYPT, ['cost' => 12]));
 
-        /** @var UserRepository $userRepository */
+        /** @var UserRepositoryInterface $userRepository */
         $userRepository = parent::$entityManager->getRepository(User::class);
         $userRepository->persist($user);
         $userRepository->flush();
 
         $this->assertEquals(1, $user->getId());
 
-        /** @var AccessTokenRepository $accessTokenRepository */
+        /** @var AccessTokenRepositoryInterface $accessTokenRepository */
         $accessTokenRepository = parent::$entityManager->getRepository(AccessToken::class);
 
         $oauthAccessTokenRepository = new OAuthAccessTokenRepository(
