@@ -30,7 +30,7 @@ class User implements UserEntityInterface
     /**
      * @inheritdoc
      */
-    public function getIdentifier()
+    public function getIdentifier(): ?string
     {
         return $this->login;
     }

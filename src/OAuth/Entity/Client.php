@@ -33,7 +33,7 @@ class Client implements ClientEntityInterface
     /**
      * @inheritdoc
      */
-    public function getIdentifier(): string
+    public function getIdentifier(): ?string
     {
         return $this->name;
     }
@@ -41,7 +41,7 @@ class Client implements ClientEntityInterface
     /**
      * @inheritdoc
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -49,7 +49,7 @@ class Client implements ClientEntityInterface
     /**
      * @inheritdoc
      */
-    public function getRedirectUri(): string
+    public function getRedirectUri(): ?string
     {
         return $this->redirectUri;
     }

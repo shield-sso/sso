@@ -30,7 +30,7 @@ class Scope implements ScopeEntityInterface
     /**
      * @inheritdoc
      */
-    public function getIdentifier(): string
+    public function getIdentifier(): ?string
     {
         return $this->name;
     }
@@ -38,7 +38,7 @@ class Scope implements ScopeEntityInterface
     /**
      * @inheritdoc
      */
-    function jsonSerialize(): string
+    function jsonSerialize(): ?string
     {
         return $this->name;
     }

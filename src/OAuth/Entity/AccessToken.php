@@ -15,20 +15,20 @@ class AccessToken implements AccessTokenEntityInterface
 {
     use AccessTokenTrait;
 
-    /** @var string */
-    private $code;
+    /** @var string|null */
+    private $code = null;
 
-    /** @var DateTimeInterface */
-    private $expiryDateTime;
+    /** @var DateTimeInterface|null */
+    private $expiryDateTime = null;
 
-    /** @var string */
-    private $userIdentifier;
+    /** @var string|null */
+    private $userIdentifier = null;
 
-    /** @var ClientEntityInterface */
-    private $client;
+    /** @var ClientEntityInterface|null */
+    private $client = null;
 
     /** @var ScopeEntityInterface[] */
-    private $scopes;
+    private $scopes = [];
 
     /**
      * @param string $code
@@ -39,9 +39,9 @@ class AccessToken implements AccessTokenEntityInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCode(): string
+    public function getCode(): ?string
     {
         return $this->code;
     }
@@ -57,7 +57,7 @@ class AccessToken implements AccessTokenEntityInterface
     /**
      * @inheritdoc
      */
-    public function getIdentifier(): string
+    public function getIdentifier(): ?string
     {
         return $this->code;
     }
@@ -73,7 +73,7 @@ class AccessToken implements AccessTokenEntityInterface
     /**
      * @inheritdoc
      */
-    public function getExpiryDateTime(): DateTimeInterface
+    public function getExpiryDateTime(): ?DateTimeInterface
     {
         return $this->expiryDateTime;
     }
@@ -89,7 +89,7 @@ class AccessToken implements AccessTokenEntityInterface
     /**
      * @inheritdoc
      */
-    public function getUserIdentifier(): string
+    public function getUserIdentifier(): ?string
     {
         return $this->userIdentifier;
     }
@@ -105,7 +105,7 @@ class AccessToken implements AccessTokenEntityInterface
     /**
      * @inheritdoc
      */
-    public function getClient(): ClientEntityInterface
+    public function getClient(): ?ClientEntityInterface
     {
         return $this->client;
     }
