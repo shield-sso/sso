@@ -5,8 +5,9 @@ declare(strict_types = 1);
 namespace ShieldSSO\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use ShieldSSO\Contract\Entity\UserInterface;
 
-class User extends AbstractEntity
+class User extends AbstractEntity implements UserInterface
 {
     /** @var string|null */
     private $login = null;

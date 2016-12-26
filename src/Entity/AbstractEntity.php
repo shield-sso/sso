@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace ShieldSSO\Entity;
 
-abstract class AbstractEntity
+use ShieldSSO\Contract\Entity\EntityInterface;
+
+abstract class AbstractEntity implements EntityInterface
 {
     /** @var integer|null */
     protected $id = null;
@@ -18,7 +20,7 @@ abstract class AbstractEntity
     }
 
     /**
-     * @return integer|null
+     * @inheritdoc
      */
     public function getId(): ?int
     {

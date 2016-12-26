@@ -4,9 +4,10 @@ declare(strict_types = 1);
 
 namespace ShieldSSO\Entity;
 
+use ShieldSSO\Contract\Entity\ScopeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Scope extends AbstractEntity
+class Scope extends AbstractEntity implements ScopeInterface
 {
     /** @var string|null */
     private $name = null;

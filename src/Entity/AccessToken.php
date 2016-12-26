@@ -6,8 +6,9 @@ namespace ShieldSSO\Entity;
 
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use ShieldSSO\Contract\Entity\AccessTokenInterface;
 
-class AccessToken extends AbstractEntity
+class AccessToken extends AbstractEntity implements AccessTokenInterface
 {
     /** @var string|null */
     private $code = null;
