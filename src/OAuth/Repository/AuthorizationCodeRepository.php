@@ -60,11 +60,11 @@ class AuthorizationCodeRepository implements AuthCodeRepositoryInterface
 
         $client = $this->appClientRepository->getByName($authorizationCodeEntity->getClient()->getName());
         $appAuthorizationCode->setClient($client);
-        $client->addAccessToken($appAuthorizationCode);
+        $client->addAuthorizationCode($appAuthorizationCode);
 
         $user = $this->appUserRepository->getByLogin($authorizationCodeEntity->getUserIdentifier());
         $appAuthorizationCode->setUser($user);
-        $user->addAccessToken($appAuthorizationCode);
+        $user->addAuthorizationCode($appAuthorizationCode);
 
         $scopeNames = [];
         foreach ($authorizationCodeEntity->getScopes() as $scope) {
@@ -75,7 +75,7 @@ class AuthorizationCodeRepository implements AuthCodeRepositoryInterface
         foreach ($scopes as $scope) {
             /** @var AppScope $scope */
             $appAuthorizationCode->addScope($scope);
-            $scope->addAccessToken($appAuthorizationCode);
+            $scope->addAuthorizationCode($appAuthorizationCode);
         }
 
         $this->appAuthorizationCodeRepository->persist($appAuthorizationCode);
