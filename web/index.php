@@ -13,6 +13,7 @@ use Symfony\Component\Yaml\Yaml;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
+use Silex\Provider\Psr7ServiceProvider;
 
 $app = new Application;
 
@@ -33,7 +34,9 @@ $app->register(new DoctrineOrmServiceProvider, [
         ]
     ]
 ]);
+
 $app->register(new OAuthServerProvider);
+$app->register(new Psr7ServiceProvider);
 
 $app->mount('/', new RoutingProvider);
 
