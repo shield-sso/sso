@@ -4,17 +4,15 @@ declare(strict_types = 1);
 
 namespace ShieldSSO\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
-use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\Exception\OAuthServerException;
-use Psr\Http\Message\ResponseInterface;
 use ShieldSSO\Application;
-use Psr\Http\Message\ServerRequestInterface;
-use ShieldSSO\Contract\Repository\UserRepositoryInterface;
-use ShieldSSO\Entity\User;
 use ShieldSSO\OAuth\Entity\User as OAuthUser;
+use ShieldSSO\Contract\Repository\UserRepositoryInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
+use League\OAuth2\Server\AuthorizationServer;
+use League\OAuth2\Server\Exception\OAuthServerException;
 
 class OAuthController
 {
@@ -28,14 +26,12 @@ class OAuthController
     {
         try {
             /** @var AuthorizationServer $server */
-            /** @var EntityManagerInterface $entityManager */
             /** @var UserRepositoryInterface $userRepository */
 
             $server = $app['oauth.server'];
             $authRequest = $server->validateAuthorizationRequest($request);
 
-            $entityManager = $app['orm.em'];
-            $userRepository = $entityManager->getRepository(User::class);
+            $userRepository = $app['repository.user'];
             $user = $userRepository->getById(1);
 
             $oauthUser = new OAuthUser;
