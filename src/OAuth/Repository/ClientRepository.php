@@ -29,7 +29,7 @@ class ClientRepository implements ClientRepositoryInterface
         $clientIdentifier,
         $grantType,
         $clientSecret = null,
-        $mustValidateSecret = true): ClientEntityInterface
+        $mustValidateSecret = true): ?ClientEntityInterface
     {
         if ($grantType != 'authorization_code') {
             return null;

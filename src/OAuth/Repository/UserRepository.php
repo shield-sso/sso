@@ -31,7 +31,7 @@ class UserRepository implements UserRepositoryInterface
         $password,
         $grantType,
         ClientEntityInterface $clientEntity
-    ): UserEntityInterface
+    ): ?UserEntityInterface
     {
         if ($grantType != 'authorization_code') {
             return null;

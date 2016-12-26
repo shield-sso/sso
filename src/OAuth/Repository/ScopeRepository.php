@@ -26,7 +26,7 @@ class ScopeRepository implements ScopeRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getScopeEntityByIdentifier($identifier): ScopeEntityInterface
+    public function getScopeEntityByIdentifier($identifier): ?ScopeEntityInterface
     {
         $appScope = $this->appRepository->getByName($identifier);
 
