@@ -44,10 +44,6 @@ abstract class AbstractRepositoryTest extends TestCase
 
         $console = ConsoleRunner::createApplication(ConsoleRunner::createHelperSet(self::$entityManager));
 
-        $commandName = 'orm:schema-tool:drop';
-        $command = $console->find($commandName);
-        $command->run(new ArrayInput(['command' => $commandName, '--force' => true]), new NullOutput);
-
         $commandName = 'orm:schema-tool:update';
         $command = $console->find($commandName);
         $command->run(new ArrayInput(['command' => $commandName, '--force' => true]), new NullOutput);
@@ -64,10 +60,6 @@ abstract class AbstractRepositoryTest extends TestCase
 
     public function tearDown(): void
     {
-        $console = ConsoleRunner::createApplication(ConsoleRunner::createHelperSet(self::$entityManager));
-
-        $commandName = 'orm:schema-tool:update';
-        $command = $console->find($commandName);
-        $command->run(new ArrayInput(['command' => $commandName, '--force' => true]), new NullOutput);
+        $this->setUp();
     }
 }
