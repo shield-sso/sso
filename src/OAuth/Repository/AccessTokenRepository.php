@@ -8,7 +8,7 @@ use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use ShieldSSO\Entity\AccessToken as AppAccessToken;
-use ShieldSSO\Entity\Scope;
+use ShieldSSO\Entity\Scope as AppScope;
 use ShieldSSO\OAuth\Entity\AccessToken;
 use ShieldSSO\Contract\Repository\AccessTokenRepositoryInterface as AppAccessTokenRepositoryInterface;
 use ShieldSSO\Contract\Repository\ClientRepositoryInterface as AppClientRepositoryInterface;
@@ -82,7 +82,7 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
 
         $scopes = $this->appScopeRepository->getByNames($scopeNames);
         foreach ($scopes as $scope) {
-            /** @var Scope $scope */
+            /** @var AppScope $scope */
             $appAccessToken->addScope($scope);
             $scope->addAccessToken($appAccessToken);
         }
