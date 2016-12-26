@@ -66,17 +66,17 @@ class OAuthServerProvider implements ServiceProviderInterface
                 $clientRepository,
                 $accessTokenRepository,
                 $scopeRepository,
-                __DIR__ . '/../../resources/keys/private.key',
-                __DIR__ . '/../../resources/keys/public.key'
+                __DIR__ . '/../../' . $container['config']['oauth']['private_key_path'],
+                __DIR__ . '/../../' . $container['config']['oauth']['public_key_path']
             );
 
             $grant = new AuthCodeGrant(
                 $authCodeRepository,
                 $refreshTokenRepository,
-                new DateInterval('PT10M')
+                new DateInterval($container['parameters']['oauth']['authorization_code_ttl'])
             );
-            $grant->setRefreshTokenTTL(new DateInterval('P1M'));
-            $server->enableGrantType($grant, new DateInterval('PT1H'));
+            $grant->setRefreshTokenTTL(new DateInterval($container['parameters']['oauth']['refresh_token_ttl']));
+            $server->enableGrantType($grant, new DateInterval($container['parameters']['oauth']['access_token_ttl']));
 
             return $server;
         };

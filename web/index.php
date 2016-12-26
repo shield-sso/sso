@@ -23,19 +23,19 @@ use Silex\Provider\Psr7ServiceProvider;
 
 $app = new Application;
 
-$config = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/config.yml'));
-$parameters = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
+$app['config'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/config.yml'));
+$app['parameters'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
 
-$app->register(new TwigServiceProvider, ['twig.path' => BASE_PATH . $config['twig']['views_path']]);
-$app->register(new DoctrineServiceProvider, ['db.options' => $parameters['database']]);
+$app->register(new TwigServiceProvider, ['twig.path' => BASE_PATH . $app['config']['twig']['views_path']]);
+$app->register(new DoctrineServiceProvider, ['db.options' => $app['parameters']['database']]);
 $app->register(new DoctrineOrmServiceProvider, [
-    'orm.proxies_dir' => BASE_PATH . $config['doctrine']['proxies_path'],
+    'orm.proxies_dir' => BASE_PATH . $app['config']['doctrine']['proxies_path'],
     'orm.em.options' => [
         'mappings' => [
             [
-                'type' => $config['doctrine']['mapping']['type'],
-                'namespace' => $config['doctrine']['mapping']['namespace'],
-                'path' => BASE_PATH . $config['doctrine']['mapping']['path'],
+                'type' => $app['config']['doctrine']['mapping']['type'],
+                'namespace' => $app['config']['doctrine']['mapping']['namespace'],
+                'path' => BASE_PATH . $app['config']['doctrine']['mapping']['path'],
             ]
         ]
     ]
