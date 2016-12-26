@@ -75,8 +75,8 @@ class OAuthServerProvider implements ServiceProviderInterface
                 $appAccessTokenRepository
             );
 
-            $privateKey = 'file://path/to/private.key';
-            $publicKey = 'file://path/to/public.key';
+            $privateKey = __DIR__ . '/../../resources/keys/private.key';
+            $publicKey = __DIR__ . '/../../resources/keys/public.key';
 
             $server = new AuthorizationServer(
                 $clientRepository,
