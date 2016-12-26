@@ -7,19 +7,28 @@ namespace ShieldSSO\OAuth\Repository;
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use ShieldSSO\OAuth\Entity\RefreshToken;
-use ShieldSSO\Contract\Repository\RefreshTokenRepositoryInterface as AppRepositoryInterface;
+use ShieldSSO\Contract\Repository\RefreshTokenRepositoryInterface as AppRefreshTokenRepositoryInterface;
+use ShieldSSO\Contract\Repository\AccessTokenRepositoryInterface as AppAccessTokenRepositoryInterface;
+use ShieldSSO\Entity\RefreshToken as AppRefreshToken;
 
 class RefreshTokenRepository implements RefreshTokenRepositoryInterface
 {
-    /** @var AppRepositoryInterface */
-    private $appRepository;
+    /** @var AppRefreshTokenRepositoryInterface */
+    private $appRefreshTokenRepository;
+
+    /** @var AppAccessTokenRepositoryInterface */
+    private $appAccessTokenRepository;
 
     /**
-     * @param AppRepositoryInterface $appRepository
+     * @param AppRefreshTokenRepositoryInterface $appRefreshTokenRepository
+     * @param AppAccessTokenRepositoryInterface $appAccessTokenRepository
      */
-    public function __construct(AppRepositoryInterface $appRepository)
+    public function __construct(
+        AppRefreshTokenRepositoryInterface $appRefreshTokenRepository,
+        AppAccessTokenRepositoryInterface $appAccessTokenRepository)
     {
-        $this->appRepository = $appRepository;
+        $this->appRefreshTokenRepository = $appRefreshTokenRepository;
+        $this->appAccessTokenRepository = $appAccessTokenRepository;
     }
 
     /**
@@ -35,6 +44,16 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
      */
     public function persistNewRefreshToken(RefreshTokenEntityInterface $refreshTokenEntity): void
     {
+        $appRefreshToken = new AppRefreshToken;
+        $appRefreshToken->setCode($refreshTokenEntity->getIdentifier());
+        $appRefreshToken->setExpiryDateTime($refreshTokenEntity->getExpiryDateTime());
+
+        $accessTokenCode = $refreshTokenEntity->getAccessToken()->getIdentifier();
+        $appAccessToken = $this->appAccessTokenRepository->getByCode($accessTokenCode);
+        $appRefreshToken->setAccessToken($appAccessToken);
+
+        $this->appRefreshTokenRepository->persist($appRefreshToken);
+        $this->appRefreshTokenRepository->flush();
     }
 
     /**
@@ -42,11 +61,11 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
      */
     public function revokeRefreshToken($code): void
     {
-        $refreshToken = $this->appRepository->getByCode($code);
+        $refreshToken = $this->appRefreshTokenRepository->getByCode($code);
         $refreshToken->setRevoked(true);
 
-        $this->appRepository->persist($refreshToken);
-        $this->appRepository->flush();
+        $this->appRefreshTokenRepository->persist($refreshToken);
+        $this->appRefreshTokenRepository->flush();
     }
 
     /**
@@ -54,7 +73,7 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
      */
     public function isRefreshTokenRevoked($code): bool
     {
-        $refreshToken = $this->appRepository->getByCode($code);
+        $refreshToken = $this->appRefreshTokenRepository->getByCode($code);
 
         return $refreshToken->isRevoked();
     }
