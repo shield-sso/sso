@@ -5,16 +5,15 @@ declare(strict_types = 1);
 namespace ShieldSSO\Repository;
 
 use Doctrine\ORM\NoResultException;
-use ShieldSSO\Entity\AccessToken;
+use ShieldSSO\Contract\Entity\AccessTokenInterface;
+use ShieldSSO\Contract\Repository\AccessTokenRepositoryInterface;
 
-class AccessTokenRepository extends AbstractRepository
+class AccessTokenRepository extends AbstractRepository implements AccessTokenRepositoryInterface
 {
     /**
-     * @param int $id
-     *
-     * @return AccessToken|null
+     * @inheritdoc
      */
-    public function getById(int $id): ?AccessToken
+    public function getById(int $id): ?AccessTokenInterface
     {
         $query = $this->createQueryBuilder('access_token')
             ->where('access_token.id = :id')
@@ -29,11 +28,9 @@ class AccessTokenRepository extends AbstractRepository
     }
 
     /**
-     * @param string $code
-     *
-     * @return AccessToken|null
+     * @inheritdoc
      */
-    public function getByCode(string $code): ?AccessToken
+    public function getByCode(string $code): ?AccessTokenInterface
     {
         $query = $this->createQueryBuilder('access_token')
             ->where('access_token.code = :code')
@@ -48,9 +45,9 @@ class AccessTokenRepository extends AbstractRepository
     }
 
     /**
-     * @param AccessToken $accessToken
+     * @inheritdoc
      */
-    public function persist(AccessToken $accessToken): void
+    public function persist(AccessTokenInterface $accessToken): void
     {
         $this->_em->persist($accessToken);
         $this->entitiesToFlush[] = $accessToken;

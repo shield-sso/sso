@@ -42,7 +42,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @param string $code
+     * @inheritdoc
      */
     public function setCode(string $code): void
     {
@@ -50,7 +50,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
     public function getCode(): ?string
     {
@@ -58,7 +58,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @param DateTimeInterface $expiryDateTime
+     * @inheritdoc
      */
     public function setExpiryDateTime(DateTimeInterface $expiryDateTime): void
     {
@@ -66,7 +66,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @return DateTimeInterface|null
+     * @inheritdoc
      */
     public function getExpiryDateTime(): ?DateTimeInterface
     {
@@ -74,7 +74,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @param boolean $revoked
+     * @inheritdoc
      */
     public function setRevoked(bool $revoked): void
     {
@@ -82,7 +82,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @return boolean
+     * @inheritdoc
      */
     public function isRevoked(): bool
     {
@@ -90,7 +90,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @param UserInterface $user
+     * @inheritdoc
      */
     public function setUser(UserInterface $user): void
     {
@@ -98,7 +98,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @return UserInterface|null
+     * @inheritdoc
      */
     public function getUser(): ?UserInterface
     {
@@ -106,7 +106,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @param ClientInterface $client
+     * @inheritdoc
      */
     public function setClient(ClientInterface $client): void
     {
@@ -114,7 +114,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @return ClientInterface|null
+     * @inheritdoc
      */
     public function getClient(): ?ClientInterface
     {
@@ -122,7 +122,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @param ScopeInterface $scope
+     * @inheritdoc
      */
     public function addScope(ScopeInterface $scope): void
     {
@@ -130,7 +130,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @return CollectionInterface
+     * @inheritdoc
      */
     public function getScopes(): CollectionInterface
     {
@@ -138,7 +138,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @param ScopeInterface $scope
+     * @inheritdoc
      */
     public function removeScope(ScopeInterface $scope): void
     {

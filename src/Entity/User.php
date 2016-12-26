@@ -30,7 +30,7 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param string $login
+     * @inheritdoc
      */
     public function setLogin(string $login): void
     {
@@ -38,7 +38,7 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
     public function getLogin(): ?string
     {
@@ -46,7 +46,7 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param string $password
+     * @inheritdoc
      */
     public function setPassword(string $password): void
     {
@@ -54,7 +54,7 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
     public function getPassword(): ?string
     {
@@ -62,7 +62,7 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param AccessTokenInterface $accessToken
+     * @inheritdoc
      */
     public function addAccessToken(AccessTokenInterface $accessToken): void
     {
@@ -70,7 +70,7 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @return CollectionInterface
+     * @inheritdoc
      */
     public function getAccessTokens(): CollectionInterface
     {
@@ -78,7 +78,7 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param AccessTokenInterface $accessToken
+     * @inheritdoc
      */
     public function removeAccessToken(AccessTokenInterface $accessToken): void
     {

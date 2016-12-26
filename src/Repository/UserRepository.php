@@ -5,16 +5,15 @@ declare(strict_types = 1);
 namespace ShieldSSO\Repository;
 
 use Doctrine\ORM\NoResultException;
-use ShieldSSO\Entity\User;
+use ShieldSSO\Contract\Entity\UserInterface;
+use ShieldSSO\Contract\Repository\UserRepositoryInterface;
 
-class UserRepository extends AbstractRepository
+class UserRepository extends AbstractRepository implements UserRepositoryInterface
 {
     /**
-     * @param int $id
-     *
-     * @return User|null
+     * @inheritdoc
      */
-    public function getById(int $id): ?User
+    public function getById(int $id): ?UserInterface
     {
         $query = $this->createQueryBuilder('user')
             ->where('user.id = :id')
@@ -29,11 +28,9 @@ class UserRepository extends AbstractRepository
     }
 
     /**
-     * @param string $login
-     *
-     * @return User|null
+     * @inheritdoc
      */
-    public function getByLogin(string $login): ?User
+    public function getByLogin(string $login): ?UserInterface
     {
         $query = $this->createQueryBuilder('user')
             ->where('user.login = :login')
@@ -48,9 +45,9 @@ class UserRepository extends AbstractRepository
     }
 
     /**
-     * @param User $user
+     * @inheritdoc
      */
-    public function persist(User $user): void
+    public function persist(UserInterface $user): void
     {
         $this->_em->persist($user);
         $this->entitiesToFlush[] = $user;

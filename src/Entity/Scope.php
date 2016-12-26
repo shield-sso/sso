@@ -27,7 +27,7 @@ class Scope extends AbstractEntity implements ScopeInterface
     }
 
     /**
-     * @param string $name
+     * @inheritdoc
      */
     public function setName(string $name): void
     {
@@ -35,7 +35,7 @@ class Scope extends AbstractEntity implements ScopeInterface
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
     public function getName(): ?string
     {
@@ -43,7 +43,7 @@ class Scope extends AbstractEntity implements ScopeInterface
     }
 
     /**
-     * @param AccessTokenInterface $accessToken
+     * @inheritdoc
      */
     public function addAccessToken(AccessTokenInterface $accessToken): void
     {
@@ -51,7 +51,7 @@ class Scope extends AbstractEntity implements ScopeInterface
     }
 
     /**
-     * @return CollectionInterface
+     * @inheritdoc
      */
     public function getAccessTokens(): CollectionInterface
     {
@@ -59,7 +59,7 @@ class Scope extends AbstractEntity implements ScopeInterface
     }
 
     /**
-     * @param AccessTokenInterface $accessToken
+     * @inheritdoc
      */
     public function removeAccessToken(AccessTokenInterface $accessToken): void
     {

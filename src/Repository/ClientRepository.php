@@ -5,16 +5,15 @@ declare(strict_types = 1);
 namespace ShieldSSO\Repository;
 
 use Doctrine\ORM\NoResultException;
-use ShieldSSO\Entity\Client;
+use ShieldSSO\Contract\Entity\ClientInterface;
+use ShieldSSO\Contract\Repository\ClientRepositoryInterface;
 
-class ClientRepository extends AbstractRepository
+class ClientRepository extends AbstractRepository implements ClientRepositoryInterface
 {
     /**
-     * @param int $id
-     *
-     * @return Client|null
+     * @inheritdoc
      */
-    public function getById(int $id): ?Client
+    public function getById(int $id): ?ClientInterface
     {
         $query = $this->createQueryBuilder('client')
             ->where('client.id = :id')
@@ -29,11 +28,9 @@ class ClientRepository extends AbstractRepository
     }
 
     /**
-     * @param string $name
-     *
-     * @return Client|null
+     * @inheritdoc
      */
-    public function getByName(string $name): ?Client
+    public function getByName(string $name): ?ClientInterface
     {
         $query = $this->createQueryBuilder('client')
             ->where('client.name = :name')
@@ -48,9 +45,9 @@ class ClientRepository extends AbstractRepository
     }
 
     /**
-     * @param Client $client
+     * @inheritdoc
      */
-    public function persist(Client $client): void
+    public function persist(ClientInterface $client): void
     {
         $this->_em->persist($client);
         $this->entitiesToFlush[] = $client;

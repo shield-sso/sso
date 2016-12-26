@@ -5,16 +5,15 @@ declare(strict_types = 1);
 namespace ShieldSSO\Repository;
 
 use Doctrine\ORM\NoResultException;
-use ShieldSSO\Entity\Scope;
+use ShieldSSO\Contract\Entity\ScopeInterface;
+use ShieldSSO\Contract\Repository\ScopeRepositoryInterface;
 
-class ScopeRepository extends AbstractRepository
+class ScopeRepository extends AbstractRepository implements ScopeRepositoryInterface
 {
     /**
-     * @param int $id
-     *
-     * @return Scope|null
+     * @inheritdoc
      */
-    public function getById(int $id): ?Scope
+    public function getById(int $id): ?ScopeInterface
     {
         $query = $this->createQueryBuilder('scope')
             ->where('scope.id = :id')
@@ -29,11 +28,9 @@ class ScopeRepository extends AbstractRepository
     }
 
     /**
-     * @param string $name
-     *
-     * @return Scope|null
+     * @inheritdoc
      */
-    public function getByName(string $name): ?Scope
+    public function getByName(string $name): ?ScopeInterface
     {
         $query = $this->createQueryBuilder('scope')
             ->where('scope.name = :name')
@@ -48,9 +45,7 @@ class ScopeRepository extends AbstractRepository
     }
 
     /**
-     * @param string[] $names
-     *
-     * @return array
+     * @inheritdoc
      */
     public function getByNames(array $names)
     {
@@ -63,9 +58,9 @@ class ScopeRepository extends AbstractRepository
     }
 
     /**
-     * @param Scope $scope
+     * @inheritdoc
      */
-    public function persist(Scope $scope): void
+    public function persist(ScopeInterface $scope): void
     {
         $this->_em->persist($scope);
         $this->entitiesToFlush[] = $scope;

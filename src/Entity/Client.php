@@ -33,7 +33,7 @@ class Client extends AbstractEntity implements ClientInterface
     }
 
     /**
-     * @param string $name
+     * @inheritdoc
      */
     public function setName(string $name): void
     {
@@ -41,7 +41,7 @@ class Client extends AbstractEntity implements ClientInterface
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
     public function getName(): ?string
     {
@@ -49,7 +49,7 @@ class Client extends AbstractEntity implements ClientInterface
     }
 
     /**
-     * @param string $secret
+     * @inheritdoc
      */
     public function setSecret(string $secret): void
     {
@@ -57,7 +57,7 @@ class Client extends AbstractEntity implements ClientInterface
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
     public function getSecret(): ?string
     {
@@ -65,7 +65,7 @@ class Client extends AbstractEntity implements ClientInterface
     }
 
     /**
-     * @param string $redirectUri
+     * @inheritdoc
      */
     public function setRedirectUri(string $redirectUri): void
     {
@@ -73,7 +73,7 @@ class Client extends AbstractEntity implements ClientInterface
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
     public function getRedirectUri(): ?string
     {
@@ -81,7 +81,7 @@ class Client extends AbstractEntity implements ClientInterface
     }
 
     /**
-     * @param AccessTokenInterface $accessToken
+     * @inheritdoc
      */
     public function addAccessToken(AccessTokenInterface $accessToken): void
     {
@@ -89,7 +89,7 @@ class Client extends AbstractEntity implements ClientInterface
     }
 
     /**
-     * @return CollectionInterface
+     * @inheritdoc
      */
     public function getAccessTokens(): CollectionInterface
     {
@@ -97,7 +97,7 @@ class Client extends AbstractEntity implements ClientInterface
     }
 
     /**
-     * @param AccessTokenInterface $accessToken
+     * @inheritdoc
      */
     public function removeAccessToken(AccessTokenInterface $accessToken): void
     {
