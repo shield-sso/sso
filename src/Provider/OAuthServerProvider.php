@@ -35,7 +35,7 @@ class OAuthServerProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $container['oauth.server'] = function ($container) {
+        $container['oauth.server'] = function (Container $container): AuthorizationServer {
             /** @var EntityManagerInterface $entityManager */
             /** @var AppClientRepository $appClientRepository */
             /** @var AppScopeRepository $appScopeRepository */
