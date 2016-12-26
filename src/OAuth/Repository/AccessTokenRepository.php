@@ -10,36 +10,36 @@ use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use ShieldSSO\Entity\AccessToken as AppAccessToken;
 use ShieldSSO\Entity\Scope;
 use ShieldSSO\OAuth\Entity\AccessToken;
-use ShieldSSO\Repository\AccessTokenRepository as AppAccessTokenRepository;
-use ShieldSSO\Repository\ClientRepository as AppClientRepository;
-use ShieldSSO\Repository\UserRepository as AppUserRepository;
-use ShieldSSO\Repository\ScopeRepository as AppScopeRepository;
+use ShieldSSO\Contract\Repository\AccessTokenRepositoryInterface as AppAccessTokenRepositoryInterface;
+use ShieldSSO\Contract\Repository\ClientRepositoryInterface as AppClientRepositoryInterface;
+use ShieldSSO\Contract\Repository\UserRepositoryInterface as AppUserRepositoryInterface;
+use ShieldSSO\Contract\Repository\ScopeRepositoryInterface as AppScopeRepositoryInterface;
 
 class AccessTokenRepository implements AccessTokenRepositoryInterface
 {
-    /** @var AppAccessTokenRepository */
+    /** @var AppAccessTokenRepositoryInterface */
     private $appAccessTokenRepository;
 
-    /** @var AppClientRepository */
+    /** @var AppClientRepositoryInterface */
     private $appClientRepository;
 
-    /** @var AppUserRepository */
+    /** @var AppUserRepositoryInterface */
     private $appUserRepository;
 
-    /** @var AppScopeRepository */
+    /** @var AppScopeRepositoryInterface */
     private $appScopeRepository;
 
     /**
-     * @param AppAccessTokenRepository $appAccessTokenRepository
-     * @param AppClientRepository $appClientRepository
-     * @param AppUserRepository $appUserRepository
-     * @param AppScopeRepository $appScopeRepository
+     * @param AppAccessTokenRepositoryInterface $appAccessTokenRepository
+     * @param AppClientRepositoryInterface $appClientRepository
+     * @param AppUserRepositoryInterface $appUserRepository
+     * @param AppScopeRepositoryInterface $appScopeRepository
      */
     public function __construct(
-        AppAccessTokenRepository $appAccessTokenRepository,
-        AppClientRepository $appClientRepository,
-        AppUserRepository $appUserRepository,
-        AppScopeRepository $appScopeRepository)
+        AppAccessTokenRepositoryInterface $appAccessTokenRepository,
+        AppClientRepositoryInterface $appClientRepository,
+        AppUserRepositoryInterface $appUserRepository,
+        AppScopeRepositoryInterface $appScopeRepository)
     {
         $this->appAccessTokenRepository = $appAccessTokenRepository;
         $this->appClientRepository = $appClientRepository;

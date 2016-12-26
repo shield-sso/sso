@@ -6,4 +6,4 @@ doctrine:
   mapping:
     type: 'simple_yml'
     namespace: 'ShieldSSO\Entity'
-    path: 'resources/config/doctrine_mapping'
+    path: 'resources/config/mapping'

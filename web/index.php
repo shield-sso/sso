@@ -16,10 +16,10 @@ use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 $app = new Application;
 
 $config = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/config.yml'));
-$config['parameters'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
+$parameters = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
 
 $app->register(new TwigServiceProvider, ['twig.path' => BASE_PATH . $config['twig']['views_path']]);
-$app->register(new DoctrineServiceProvider, ['db.options' => $config['parameters']['database']]);
+$app->register(new DoctrineServiceProvider, ['db.options' => $parameters['database']]);
 $app->register(new DoctrineOrmServiceProvider, [
     'orm.proxies_dir' => BASE_PATH . $config['doctrine']['proxies_path'],
     'orm.em.options' => [

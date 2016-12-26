@@ -6,19 +6,19 @@ namespace ShieldSSO\OAuth\Repository;
 
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
-use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use ShieldSSO\OAuth\Entity\Scope;
-use ShieldSSO\Repository\ScopeRepository as AppRepository;
+use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
+use ShieldSSO\Contract\Repository\ScopeRepositoryInterface as AppRepositoryInterface;
 
 class ScopeRepository implements ScopeRepositoryInterface
 {
-    /** @var AppRepository */
+    /** @var AppRepositoryInterface */
     private $appRepository;
 
     /**
-     * @param AppRepository $appRepository
+     * @param AppRepositoryInterface $appRepository
      */
-    public function __construct(AppRepository $appRepository)
+    public function __construct(AppRepositoryInterface $appRepository)
     {
         $this->appRepository = $appRepository;
     }

@@ -5,19 +5,19 @@ declare(strict_types = 1);
 namespace ShieldSSO\OAuth\Repository;
 
 use League\OAuth2\Server\Entities\ClientEntityInterface;
-use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use ShieldSSO\OAuth\Entity\Client;
-use ShieldSSO\Repository\ClientRepository as AppRepository;
+use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
+use ShieldSSO\Contract\Repository\ClientRepositoryInterface as AppRepositoryInterface;
 
 class ClientRepository implements ClientRepositoryInterface
 {
-    /** @var AppRepository */
+    /** @var AppRepositoryInterface */
     private $appRepository;
 
     /**
-     * @param AppRepository $appRepository
+     * @param AppRepositoryInterface $appRepository
      */
-    public function __construct(AppRepository $appRepository)
+    public function __construct(AppRepositoryInterface $appRepository)
     {
         $this->appRepository = $appRepository;
     }
@@ -43,7 +43,6 @@ class ClientRepository implements ClientRepositoryInterface
         $client = new Client;
         $client->setName($appClient->getName());
         $client->setRedirectUri($appClient->getRedirectUri());
-        $client->setAppEntityId($appClient->getId());
 
         return $client;
     }
