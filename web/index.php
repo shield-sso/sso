@@ -7,8 +7,14 @@ define('BASE_PATH', __DIR__ . '/../');
 require_once BASE_PATH . 'vendor/autoload.php';
 
 use ShieldSSO\Application;
-use ShieldSSO\Provider\OAuthServerProvider;
 use ShieldSSO\Provider\RoutingProvider;
+use ShieldSSO\Provider\AccessTokenRepositoryProvider;
+use ShieldSSO\Provider\AuthorizationCodeRepositoryProvider;
+use ShieldSSO\Provider\ClientRepositoryProvider;
+use ShieldSSO\Provider\RefreshTokenRepositoryProvider;
+use ShieldSSO\Provider\ScopeRepositoryProvider;
+use ShieldSSO\Provider\UserRepositoryProvider;
+use ShieldSSO\Provider\OAuthServerProvider;
 use Symfony\Component\Yaml\Yaml;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
@@ -37,6 +43,13 @@ $app->register(new DoctrineOrmServiceProvider, [
 
 $app->register(new OAuthServerProvider);
 $app->register(new Psr7ServiceProvider);
+
+$app->register(new UserRepositoryProvider);
+$app->register(new ScopeRepositoryProvider);
+$app->register(new ClientRepositoryProvider);
+$app->register(new AuthorizationCodeRepositoryProvider);
+$app->register(new AccessTokenRepositoryProvider);
+$app->register(new RefreshTokenRepositoryProvider);
 
 $app->mount('/', new RoutingProvider);
 
