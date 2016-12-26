@@ -5,9 +5,10 @@ declare(strict_types = 1);
 namespace ShieldSSO\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use ShieldSSO\Contract\Repository\RepositoryInterface;
 use ShieldSSO\Entity\AbstractEntity;
 
-abstract class AbstractRepository extends EntityRepository
+abstract class AbstractRepository extends EntityRepository implements RepositoryInterface
 {
     /** @var AbstractEntity */
     protected $entitiesToFlush = [];

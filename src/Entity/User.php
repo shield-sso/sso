@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace ShieldSSO\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection as CollectionInterface;
+use ShieldSSO\Contract\Entity\AccessTokenInterface;
 use ShieldSSO\Contract\Entity\UserInterface;
 
 class User extends AbstractEntity implements UserInterface
@@ -60,25 +62,25 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param AccessToken $accessToken
+     * @param AccessTokenInterface $accessToken
      */
-    public function addAccessToken(AccessToken $accessToken): void
+    public function addAccessToken(AccessTokenInterface $accessToken): void
     {
         $this->accessTokens->add($accessToken);
     }
 
     /**
-     * @return ArrayCollection
+     * @return CollectionInterface
      */
-    public function getAccessTokens(): ArrayCollection
+    public function getAccessTokens(): CollectionInterface
     {
         return $this->accessTokens;
     }
 
     /**
-     * @param AccessToken $accessToken
+     * @param AccessTokenInterface $accessToken
      */
-    public function removeAccessToken(AccessToken $accessToken): void
+    public function removeAccessToken(AccessTokenInterface $accessToken): void
     {
         $this->accessTokens->removeElement($accessToken);
     }

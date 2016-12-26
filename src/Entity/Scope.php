@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace ShieldSSO\Entity;
 
-use ShieldSSO\Contract\Entity\ScopeInterface;
+use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use ShieldSSO\Contract\Entity\AccessTokenInterface;
+use ShieldSSO\Contract\Entity\ScopeInterface;
 
 class Scope extends AbstractEntity implements ScopeInterface
 {
@@ -41,25 +43,25 @@ class Scope extends AbstractEntity implements ScopeInterface
     }
 
     /**
-     * @param AccessToken $accessToken
+     * @param AccessTokenInterface $accessToken
      */
-    public function addAccessToken(AccessToken $accessToken): void
+    public function addAccessToken(AccessTokenInterface $accessToken): void
     {
         $this->accessTokens->add($accessToken);
     }
 
     /**
-     * @return ArrayCollection
+     * @return CollectionInterface
      */
-    public function getAccessTokens(): ArrayCollection
+    public function getAccessTokens(): CollectionInterface
     {
         return $this->accessTokens;
     }
 
     /**
-     * @param AccessToken $accessToken
+     * @param AccessTokenInterface $accessToken
      */
-    public function removeAccessToken(AccessToken $accessToken): void
+    public function removeAccessToken(AccessTokenInterface $accessToken): void
     {
         $this->accessTokens->removeElement($accessToken);
     }

@@ -6,7 +6,11 @@ namespace ShieldSSO\Entity;
 
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection as CollectionInterface;
 use ShieldSSO\Contract\Entity\AccessTokenInterface;
+use ShieldSSO\Contract\Entity\ClientInterface;
+use ShieldSSO\Contract\Entity\ScopeInterface;
+use ShieldSSO\Contract\Entity\UserInterface;
 
 class AccessToken extends AbstractEntity implements AccessTokenInterface
 {
@@ -25,7 +29,7 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     /** @var Client|null */
     private $client = null;
 
-    /** @var ArrayCollection */
+    /** @var CollectionInterface */
     private $scopes;
 
     /**
@@ -86,57 +90,57 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     }
 
     /**
-     * @param User $user
+     * @param UserInterface $user
      */
-    public function setUser(User $user): void
+    public function setUser(UserInterface $user): void
     {
         $this->user = $user;
     }
 
     /**
-     * @return User|null
+     * @return UserInterface|null
      */
-    public function getUser(): ?User
+    public function getUser(): ?UserInterface
     {
         return $this->user;
     }
 
     /**
-     * @param Client $client
+     * @param ClientInterface $client
      */
-    public function setClient(Client $client): void
+    public function setClient(ClientInterface $client): void
     {
         $this->client = $client;
     }
 
     /**
-     * @return Client|null
+     * @return ClientInterface|null
      */
-    public function getClient(): ?Client
+    public function getClient(): ?ClientInterface
     {
         return $this->client;
     }
 
     /**
-     * @param Scope $scope
+     * @param ScopeInterface $scope
      */
-    public function addScope(Scope $scope): void
+    public function addScope(ScopeInterface $scope): void
     {
         $this->scopes->add($scope);
     }
 
     /**
-     * @return ArrayCollection
+     * @return CollectionInterface
      */
-    public function getScopes(): ArrayCollection
+    public function getScopes(): CollectionInterface
     {
         return $this->scopes;
     }
 
     /**
-     * @param Scope $scope
+     * @param ScopeInterface $scope
      */
-    public function removeScope(Scope $scope): void
+    public function removeScope(ScopeInterface $scope): void
     {
         $this->scopes->removeElement($scope);
     }

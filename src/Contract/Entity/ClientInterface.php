@@ -4,8 +4,7 @@ declare(strict_types = 1);
 
 namespace ShieldSSO\Contract\Entity;
 
-use ShieldSSO\Entity\AccessToken;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection as CollectionInterface;
 
 interface ClientInterface extends EntityInterface
 {
@@ -40,17 +39,17 @@ interface ClientInterface extends EntityInterface
     public function getRedirectUri(): ?string;
 
     /**
-     * @param AccessToken $accessToken
+     * @param AccessTokenInterface $accessToken
      */
-    public function addAccessToken(AccessToken $accessToken): void;
+    public function addAccessToken(AccessTokenInterface $accessToken): void;
 
     /**
-     * @return ArrayCollection
+     * @return CollectionInterface
      */
-    public function getAccessTokens(): ArrayCollection;
+    public function getAccessTokens(): CollectionInterface;
 
     /**
-     * @param AccessToken $accessToken
+     * @param AccessTokenInterface $accessToken
      */
-    public function removeAccessToken(AccessToken $accessToken): void;
+    public function removeAccessToken(AccessTokenInterface $accessToken): void;
 }

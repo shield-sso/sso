@@ -5,10 +5,7 @@ declare(strict_types = 1);
 namespace ShieldSSO\Contract\Entity;
 
 use DateTimeInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use ShieldSSO\Entity\Client;
-use ShieldSSO\Entity\Scope;
-use ShieldSSO\Entity\User;
+use Doctrine\Common\Collections\Collection as CollectionInterface;
 
 interface AccessTokenInterface extends EntityInterface
 {
@@ -43,37 +40,37 @@ interface AccessTokenInterface extends EntityInterface
     public function isRevoked(): bool;
 
     /**
-     * @param User $user
+     * @param UserInterface $user
      */
-    public function setUser(User $user): void;
+    public function setUser(UserInterface $user): void;
 
     /**
-     * @return User|null
+     * @return UserInterface|null
      */
-    public function getUser(): ?User;
+    public function getUser(): ?UserInterface;
 
     /**
-     * @param Client $client
+     * @param ClientInterface $client
      */
-    public function setClient(Client $client): void;
+    public function setClient(ClientInterface $client): void;
 
     /**
-     * @return Client|null
+     * @return ClientInterface|null
      */
-    public function getClient(): ?Client;
+    public function getClient(): ?ClientInterface;
 
     /**
-     * @param Scope $scope
+     * @param ScopeInterface $scope
      */
-    public function addScope(Scope $scope): void;
+    public function addScope(ScopeInterface $scope): void;
 
     /**
-     * @return ArrayCollection
+     * @return CollectionInterface
      */
-    public function getScopes(): ArrayCollection;
+    public function getScopes(): CollectionInterface;
 
     /**
-     * @param Scope $scope
+     * @param ScopeInterface $scope
      */
-    public function removeScope(Scope $scope): void;
+    public function removeScope(ScopeInterface $scope): void;
 }
