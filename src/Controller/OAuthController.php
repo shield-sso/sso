@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 namespace ShieldSSO\Controller;
 
+use Exception;
 use ShieldSSO\Application;
 use ShieldSSO\OAuth\Entity\User as OAuthUser;
 use ShieldSSO\Contract\Repository\UserRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 
@@ -24,6 +24,8 @@ class OAuthController
      */
     public function authorizeAction(Application $app, ServerRequestInterface $request): ResponseInterface
     {
+        $response = new Response;
+
         try {
             /** @var AuthorizationServer $server */
             /** @var UserRepositoryInterface $userRepository */
@@ -33,23 +35,18 @@ class OAuthController
 
             $userRepository = $app['repository.user'];
             $user = $userRepository->getById(1);
-
             $oauthUser = new OAuthUser;
             $oauthUser->setLogin($user->getLogin());
             $authRequest->setUser($oauthUser);
             $authRequest->setAuthorizationApproved(true);
 
-            return $server->completeAuthorizationRequest($authRequest, new Response);
+            return $server->completeAuthorizationRequest($authRequest, $response);
         } catch (OAuthServerException $exception) {
-            $response = new Response;
-
             return $exception->generateHttpResponse($response);
-        } catch (\Exception $exception) {
-            $body = new Stream('php://temp', 'r+');
-            $body->write($exception->getMessage());
-            $response = new Response;
+        } catch (Exception $exception) {
+            $response->getBody()->write(json_encode(['message' => 'Unknown error occurred']));
 
-            return $response->withStatus(500)->withBody($body);
+            return $response->withStatus(500);
         }
     }
 }
