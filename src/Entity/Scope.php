@@ -14,7 +14,7 @@ class Scope extends AbstractEntity implements ScopeInterface
     /** @var string|null */
     private $name = null;
 
-    /** @var ArrayCollection */
+    /** @var CollectionInterface */
     private $accessTokens;
 
     /**

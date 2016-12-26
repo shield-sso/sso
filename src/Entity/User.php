@@ -17,7 +17,7 @@ class User extends AbstractEntity implements UserInterface
     /** @var string|null */
     private $password = null;
 
-    /** @var ArrayCollection */
+    /** @var CollectionInterface */
     private $accessTokens;
 
     /**
