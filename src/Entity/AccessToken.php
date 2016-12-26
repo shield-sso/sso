@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 use ShieldSSO\Contract\Entity\AccessTokenInterface;
 use ShieldSSO\Contract\Entity\ClientInterface;
+use ShieldSSO\Contract\Entity\RefreshTokenInterface;
 use ShieldSSO\Contract\Entity\ScopeInterface;
 use ShieldSSO\Contract\Entity\UserInterface;
 
@@ -31,6 +32,9 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
 
     /** @var CollectionInterface */
     private $scopes;
+
+    /** @var RefreshTokenInterface|null */
+    private $refreshToken = null;
 
     /**
      * @inheritdoc
@@ -143,5 +147,21 @@ class AccessToken extends AbstractEntity implements AccessTokenInterface
     public function removeScope(ScopeInterface $scope): void
     {
         $this->scopes->removeElement($scope);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setRefreshToken(RefreshTokenInterface $refreshToken): void
+    {
+        $this->refreshToken = $refreshToken;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRefreshToken(): ?RefreshTokenInterface
+    {
+        return $this->refreshToken;
     }
 }

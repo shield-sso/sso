@@ -25,6 +25,14 @@ ShieldSSO\Entity\AccessToken:
       type: boolean
       nullable: false
 
+  oneToOne:
+    refreshToken:
+      targetEntity: RefreshToken
+      inversedBy: accessToken
+      joinColumn:
+        name: refresh_token_id
+        referencedColumnName: id
+
   manyToOne:
     user:
       targetEntity: User

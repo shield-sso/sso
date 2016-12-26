@@ -73,4 +73,14 @@ interface AccessTokenInterface extends EntityInterface
      * @param ScopeInterface $scope
      */
     public function removeScope(ScopeInterface $scope): void;
+
+    /**
+     * @param RefreshTokenInterface $refreshToken
+     */
+    public function setRefreshToken(RefreshTokenInterface $refreshToken): void;
+
+    /**
+     * @return RefreshTokenInterface|null
+     */
+    public function getRefreshToken(): ?RefreshTokenInterface;
 }
