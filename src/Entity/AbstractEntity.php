@@ -8,13 +8,13 @@ use ShieldSSO\Contract\Entity\EntityInterface;
 
 abstract class AbstractEntity implements EntityInterface
 {
-    /** @var integer|null */
-    protected $id = null;
+    /** @var int|null */
+    protected $id;
 
     /**
      * @param int|null $id
      */
-    public function __construct(int $id = null)
+    public function __construct(?int $id = null)
     {
         $this->id = $id;
     }

@@ -7,7 +7,7 @@ namespace ShieldSSO\Contract\Entity;
 interface EntityInterface
 {
     /**
-     * @return integer|null
+     * @return int|null
      */
     public function getId(): ?int;
 }
