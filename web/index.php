@@ -29,19 +29,23 @@ if (file_exists(BASE_PATH . 'resources/config/parameters.yml')) {
 } else {
     $dbConfig = parse_url(getenv('DATABASE_URL'));
 
-    $app['parameters']['database'] = [
-        'driver' => 'pdo_pgsql',
-        'host' => $dbConfig['host'],
-        'port' => $dbConfig['port'],
-        'dbname' => ltrim($dbConfig['path'], '/'),
-        'user' => $dbConfig['user'],
-        'password' => $dbConfig['pass'],
+    $parameters = [
+        'database' => [
+            'driver' => 'pdo_pgsql',
+            'host' => $dbConfig['host'],
+            'port' => $dbConfig['port'],
+            'dbname' => ltrim($dbConfig['path'], '/'),
+            'user' => $dbConfig['user'],
+            'password' => $dbConfig['pass'],
+        ],
+        'oauth' => [
+            'authorization_code_ttl' => 'PT10M',
+            'access_token_ttl' => 'PT1H',
+            'refresh_token_ttl' => 'P1M'
+        ]
     ];
-    $app['parameters']['oauth'] = [
-        'authorization_code_ttl' => 'PT10M',
-        'access_token_ttl' => 'PT1H',
-        'refresh_token_ttl' => 'P1M'
-    ];
+
+    $app['parameters'] = $parameters;
 }
 
 $app->register(new TwigServiceProvider, ['twig.path' => BASE_PATH . $app['config']['twig']['views_path']]);
