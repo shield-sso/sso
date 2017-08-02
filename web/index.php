@@ -24,7 +24,25 @@ use Silex\Provider\Psr7ServiceProvider;
 $app = new Application;
 
 $app['config'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/config.yml'));
-$app['parameters'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
+if (file_exists(BASE_PATH . 'resources/config/parameters.yml')) {
+    $app['parameters'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
+} else {
+    $dbConfig = parse_url(getenv('DATABASE_URL'));
+
+    $app['parameters']['database'] = [
+        'driver' => 'pdo_pgsql',
+        'host' => $dbConfig['host'],
+        'port' => $dbConfig['port'],
+        'dbname' => ltrim($dbConfig['path'], '/'),
+        'user' => $dbConfig['user'],
+        'password' => $dbConfig['pass'],
+    ];
+    $app['parameters']['oauth'] = [
+        'authorization_code_ttl' => 'PT10M',
+        'access_token_ttl' => 'PT1H',
+        'refresh_token_ttl' => 'P1M'
+    ];
+}
 
 $app->register(new TwigServiceProvider, ['twig.path' => BASE_PATH . $app['config']['twig']['views_path']]);
 $app->register(new DoctrineServiceProvider, ['db.options' => $app['parameters']['database']]);
