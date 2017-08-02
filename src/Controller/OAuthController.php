@@ -43,11 +43,10 @@ class OAuthController
             return $server->completeAuthorizationRequest($authRequest, $response);
         } catch (OAuthServerException $exception) {
             return $exception->generateHttpResponse($response);
-        } 
-//        catch (Exception $exception) {
-//            $response->getBody()->write(json_encode(['message' => 'Unknown error occurred']));
-//
-//            return $response->withStatus(500);
-//        }
+        } catch (Exception $exception) {
+            $response->getBody()->write(json_encode(['message' => 'Unknown error occurred']));
+
+            return $response->withStatus(500);
+        }
     }
 }
