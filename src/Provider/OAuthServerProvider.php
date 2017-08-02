@@ -70,6 +70,8 @@ class OAuthServerProvider implements ServiceProviderInterface
                 __DIR__ . '/../../' . $container['config']['oauth']['public_key_path']
             );
 
+            $server->setEncryptionKey('QnA/9oGiWW9heVTGUMqYcfPXA8XZWOAs0aohKBsmfX4=');
+
             $grant = new AuthCodeGrant(
                 $authCodeRepository,
                 $refreshTokenRepository,
