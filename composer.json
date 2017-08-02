@@ -16,12 +16,23 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7",
-    "doctrine/data-fixtures": "^1.2"
+    "doctrine/data-fixtures": "^1.2",
+    "heroku/heroku-buildpack-php": "dev-master"
   },
   "autoload": {
     "psr-4": {
       "ShieldSSO\\": "src/",
       "ShieldSSO\\Test\\": "tests/"
+    }
+  },
+  "extra": {
+    "heroku": {
+      "document-root": "web",
+      "php-config": [
+        "date.timezone=Europe/Warsaw",
+        "display_errors=off",
+        "short_open_tag=off"
+      ]
     }
   }
 }
