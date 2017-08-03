@@ -14,9 +14,9 @@ use ShieldSSO\Controller\IndexController;
 use ShieldSSO\Controller\OAuthController;
 use League\OAuth2\Server\Middleware\ResourceServerMiddleware;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use League\OAuth2\Server\ResourceServer;
-use Zend\Diactoros\Response;
 
 class RoutingProvider implements ControllerProviderInterface
 {
@@ -33,19 +33,20 @@ class RoutingProvider implements ControllerProviderInterface
         $controllers->post('/token', OAuthController::class . '::tokenAction')->bind('token');
         $controllers->get('/data', ApiController::class . '::dataAction')->bind('data')->before(
             function (Request $request, Application $app) {
-                $response = new Response;
-
                 try {
                     /** @var ResourceServer $server */
                     $server = $app['oauth.resource_server'];
                     $server->validateAuthenticatedRequest((new DiactorosFactory)->createRequest($request));
                 } catch (OAuthServerException $exception) {
-                    return $exception->generateHttpResponse($response);
+                    return new JsonResponse([
+                        'error' => $exception->getErrorType(),
+                        'message' => $exception->getMessage(),
+                    ], $exception->getHttpStatusCode());
                 } catch (Exception $exception) {
-                    $response->getBody()->write(json_encode(['message' => 'Unknown error occurred']));
-
-                    return $response->withStatus(500);
+                    return new JsonResponse(['message' => 'Unknown error occurred'], 500);
                 }
+
+                return null;
             }
         );
 
