@@ -44,9 +44,6 @@ class OAuthController
         } catch (OAuthServerException $exception) {
             return $exception->generateHttpResponse($response);
         } catch (Exception $exception) {
-            echo $exception->getMessage();
-            var_dump($exception);
-            die();
             $response->getBody()->write(json_encode(['message' => 'Unknown error occurred']));
 
             return $response->withStatus(500);
