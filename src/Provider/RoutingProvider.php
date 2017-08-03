@@ -36,7 +36,11 @@ class RoutingProvider implements ControllerProviderInterface
                 try {
                     /** @var ResourceServer $server */
                     $server = $app['oauth.resource_server'];
-                    $server->validateAuthenticatedRequest((new DiactorosFactory)->createRequest($request));
+                    $psrRequestFactory = new DiactorosFactory;
+                    $psrRequest = $psrRequestFactory->createRequest($request);
+                    $psrRequest = $server->validateAuthenticatedRequest($psrRequest);
+
+                    $request->attributes->set('oauth_user_id', $psrRequest->getAttribute('oauth_user_id'));
                 } catch (OAuthServerException $exception) {
                     return new JsonResponse([
                         'error' => $exception->getErrorType(),
