@@ -6,6 +6,7 @@ namespace ShieldSSO\Controller;
 
 use Exception;
 use ShieldSSO\Application;
+use League\OAuth2\Server\ResourceServer;
 use ShieldSSO\OAuth\Entity\User as OAuthUser;
 use ShieldSSO\Contract\Repository\UserRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -41,6 +42,32 @@ class OAuthController
             $authRequest->setAuthorizationApproved(true);
 
             return $server->completeAuthorizationRequest($authRequest, $response);
+        } catch (OAuthServerException $exception) {
+            return $exception->generateHttpResponse($response);
+        } catch (Exception $exception) {
+            $response->getBody()->write(json_encode(['message' => 'Unknown error occurred']));
+
+            return $response->withStatus(500);
+        }
+    }
+
+    /**
+     * @param Application $app
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     */
+    public function tokenAction(Application $app, ServerRequestInterface $request): ResponseInterface
+    {
+        $response = new Response;
+
+        try {
+            /** @var AuthorizationServer $server */
+
+            $server = $app['oauth.server'];
+
+            return $server->respondToAccessTokenRequest($request, $response);
+
         } catch (OAuthServerException $exception) {
             return $exception->generateHttpResponse($response);
         } catch (Exception $exception) {

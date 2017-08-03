@@ -7,6 +7,7 @@ define('BASE_PATH', __DIR__ . '/../');
 require_once BASE_PATH . 'vendor/autoload.php';
 
 use ShieldSSO\Application;
+use ShieldSSO\Provider\OAuthResourceServerProvider;
 use ShieldSSO\Provider\RoutingProvider;
 use ShieldSSO\Provider\AccessTokenRepositoryProvider;
 use ShieldSSO\Provider\AuthorizationCodeRepositoryProvider;
@@ -64,6 +65,7 @@ $app->register(new DoctrineOrmServiceProvider, [
 ]);
 
 $app->register(new OAuthServerProvider);
+$app->register(new OAuthResourceServerProvider);
 $app->register(new Psr7ServiceProvider);
 
 $app->register(new UserRepositoryProvider);
