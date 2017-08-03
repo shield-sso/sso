@@ -24,6 +24,11 @@ class ApiController
 
         $user = $userRepository->getById($request->attributes->get('oauth_user_id'));
 
-        return $app->json($user);
+        return $app->json(
+            [
+                'id' => $user->getId(),
+                'login' => $user->getLogin()
+            ]
+        );
     }
 }
