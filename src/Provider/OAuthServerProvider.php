@@ -7,6 +7,7 @@ namespace ShieldSSO\Provider;
 use DateInterval;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
+use League\OAuth2\Server\Grant\RefreshTokenGrant;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use ShieldSSO\OAuth\Repository\AccessTokenRepository;
@@ -77,6 +78,10 @@ class OAuthServerProvider implements ServiceProviderInterface
                 $refreshTokenRepository,
                 new DateInterval($container['parameters']['oauth']['authorization_code_ttl'])
             );
+            $grant->setRefreshTokenTTL(new DateInterval($container['parameters']['oauth']['refresh_token_ttl']));
+            $server->enableGrantType($grant, new DateInterval($container['parameters']['oauth']['access_token_ttl']));
+
+            $grant = new RefreshTokenGrant($refreshTokenRepository);
             $grant->setRefreshTokenTTL(new DateInterval($container['parameters']['oauth']['refresh_token_ttl']));
             $server->enableGrantType($grant, new DateInterval($container['parameters']['oauth']['access_token_ttl']));
 
