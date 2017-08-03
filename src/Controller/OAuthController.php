@@ -6,7 +6,6 @@ namespace ShieldSSO\Controller;
 
 use Exception;
 use ShieldSSO\Application;
-use League\OAuth2\Server\ResourceServer;
 use ShieldSSO\OAuth\Entity\User as OAuthUser;
 use ShieldSSO\Contract\Repository\UserRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
