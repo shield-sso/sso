@@ -24,7 +24,7 @@ class RoutingProvider implements ControllerProviderInterface
 
         $controllers->get('/', IndexController::class . '::indexAction')->bind('homepage');
         $controllers->get('/authorize', OAuthController::class . '::authorizeAction')->bind('authorize');
-        $controllers->get('/token', OAuthController::class . '::tokenAction')->bind('token');
+        $controllers->post('/token', OAuthController::class . '::tokenAction')->bind('token');
         $controllers->get('/data', ApiController::class . '::dataAction')->bind('data');
 
         new ResourceServerMiddleware($app['oauth.resource_server']);
