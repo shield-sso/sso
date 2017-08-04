@@ -40,6 +40,11 @@ class RoutingProvider implements ControllerProviderInterface
                     $psrRequest = $psrRequestFactory->createRequest($request);
                     $psrRequest = $server->validateAuthenticatedRequest($psrRequest);
 
+                    trigger_error($psrRequest->getAttribute('oauth_access_token_id'));
+                    trigger_error($psrRequest->getAttribute('oauth_client_id'));
+                    trigger_error($psrRequest->getAttribute('oauth_user_id'));
+                    trigger_error($psrRequest->getAttribute('oauth_scopes'));
+
                     $request->attributes->set('oauth_user_id', $psrRequest->getAttribute('oauth_user_id'));
                 } catch (OAuthServerException $exception) {
                     return new JsonResponse([
