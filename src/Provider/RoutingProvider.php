@@ -7,6 +7,7 @@ namespace ShieldSSO\Provider;
 use Exception;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use ShieldSSO\Controller\ApiController;
+use ShieldSSO\Repository\UserRepository;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\Api\ControllerProviderInterface;
@@ -40,12 +41,11 @@ class RoutingProvider implements ControllerProviderInterface
                     $psrRequest = $psrRequestFactory->createRequest($request);
                     $psrRequest = $server->validateAuthenticatedRequest($psrRequest);
 
-                    trigger_error($psrRequest->getAttribute('oauth_access_token_id'));
-                    trigger_error($psrRequest->getAttribute('oauth_client_id'));
-                    trigger_error($psrRequest->getAttribute('oauth_user_id'));
-                    trigger_error($psrRequest->getAttribute('oauth_scopes'));
+                    /** @var UserRepository $userRepository */
+                    $userRepository = $app['repository.user'];
+                    $user = $userRepository->getByLogin($psrRequest->getAttribute('oauth_user_id'));
 
-                    $request->attributes->set('oauth_user_id', $psrRequest->getAttribute('oauth_user_id'));
+                    $request->attributes->set('user', $user);
                 } catch (OAuthServerException $exception) {
                     return new JsonResponse([
                         'error' => $exception->getErrorType(),
