@@ -31,7 +31,7 @@ class ClientRepository implements ClientRepositoryInterface
         $clientSecret = null,
         $mustValidateSecret = true): ?ClientEntityInterface
     {
-        if ($grantType != 'authorization_code') {
+        if ($grantType != 'authorization_code' || $grantType != 'refresh_token') {
             return null;
         }
 
