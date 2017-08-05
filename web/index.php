@@ -14,8 +14,11 @@ use ShieldSSO\Provider\AuthorizationCodeRepositoryProvider;
 use ShieldSSO\Provider\ClientRepositoryProvider;
 use ShieldSSO\Provider\RefreshTokenRepositoryProvider;
 use ShieldSSO\Provider\ScopeRepositoryProvider;
+use ShieldSSO\Provider\UserProvider;
 use ShieldSSO\Provider\UserRepositoryProvider;
 use ShieldSSO\Provider\OAuthServerProvider;
+use Silex\Provider\SecurityServiceProvider;
+use Silex\Provider\SessionServiceProvider;
 use Symfony\Component\Yaml\Yaml;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
@@ -67,6 +70,24 @@ $app->register(new DoctrineOrmServiceProvider, [
 $app->register(new OAuthServerProvider);
 $app->register(new OAuthResourceServerProvider);
 $app->register(new Psr7ServiceProvider);
+
+$app->register(new SessionServiceProvider);
+$app->register(new SecurityServiceProvider(), [
+    'security.firewalls' => [
+        'login' => [
+            'anonymous' => true,
+            'pattern' => '^/login'
+        ],
+        'firewall' => [
+            'pattern' => '^/',
+            'form' => ['login_path' => '/login', 'check_path' => '/check'],
+            'logout' => ['logout_path' => '/logout', 'invalidate_session' => true],
+            'users' => function () use ($app) {
+                return new UserProvider($app['db']);
+            }
+        ]
+    ]
+]);
 
 $app->register(new UserRepositoryProvider);
 $app->register(new ScopeRepositoryProvider);
