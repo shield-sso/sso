@@ -18,6 +18,9 @@ class User extends AbstractEntity implements UserInterface
     /** @var string|null */
     private $password = null;
 
+    /** @var string|null */
+    private $active;
+
     /** @var CollectionInterface */
     private $accessTokens;
 
@@ -64,6 +67,34 @@ class User extends AbstractEntity implements UserInterface
     public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setActive(?string $active): void
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getActive(): ?string
+    {
+        return $this->active;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isActive(): bool
+    {
+        if ($this->active === null) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

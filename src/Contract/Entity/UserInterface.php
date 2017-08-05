@@ -29,6 +29,21 @@ interface UserInterface extends EntityInterface
     public function getPassword(): ?string;
 
     /**
+     * @param string|null $active
+     */
+    public function setActive(?string $active): void;
+
+    /**
+     * @return string|null
+     */
+    public function getActive(): ?string;
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool;
+
+    /**
      * @param AccessTokenInterface $accessToken
      */
     public function addAccessToken(AccessTokenInterface $accessToken): void;

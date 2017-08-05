@@ -2,11 +2,11 @@
 
 {% block body %}
     <h1>ShieldSSO</h1>
-    <p>Log in</p>
+    <p>Log in or <a href="{{ path('register') }}">register</a></p>
     <form action="{{ path('check') }}" method="post">
         <div class="form-error">{{ error }}</div>
-        <div><input type="text" name="_username" value="{{ last_username }}"/></div>
-        <div><input type="password" name="_password" value=""/></div>
+        <div><input type="email" name="_username" value="{{ last_username }}" placeholder="email"></div>
+        <div><input type="password" name="_password" value="" placeholder="password"></div>
         <div><input type="submit"/></div>
     </form>
 {% endblock %}

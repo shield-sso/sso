@@ -34,6 +34,8 @@ class RoutingProvider implements ControllerProviderInterface
         $controllers->post('/token', OAuthController::class . '::tokenAction')->bind('token');
 
         $controllers->get('/login', IndexController::class . '::loginAction')->bind('login');
+        $controllers->match('/register', IndexController::class . '::registerAction')->bind('register');
+        $controllers->get('/activate/{id}/{hash}', IndexController::class . '::activateAction')->bind('activate');
 
         $controllers->get('/api/data', ApiController::class . '::dataAction')->bind('api-data')->before(
             function (Request $request, Application $app) {

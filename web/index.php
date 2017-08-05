@@ -19,6 +19,7 @@ use ShieldSSO\Provider\UserRepositoryProvider;
 use ShieldSSO\Provider\OAuthServerProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
+use Silex\Provider\SwiftmailerServiceProvider;
 use Symfony\Component\Yaml\Yaml;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
@@ -74,9 +75,21 @@ $app->register(new Psr7ServiceProvider);
 $app->register(new SessionServiceProvider);
 $app->register(new SecurityServiceProvider(), [
     'security.firewalls' => [
+        'index' => [
+            'anonymous' => true,
+            'pattern' => '^/$'
+        ],
         'login' => [
             'anonymous' => true,
             'pattern' => '^/login'
+        ],
+        'register' => [
+            'anonymous' => true,
+            'pattern' => '^/register'
+        ],
+        'activate' => [
+            'anonymous' => true,
+            'pattern' => '^/activate'
         ],
         'token' => [
             'anonymous' => true,
@@ -94,6 +107,17 @@ $app->register(new SecurityServiceProvider(), [
                 return new UserProvider($app['db']);
             }
         ]
+    ]
+]);
+
+$app->register(new SwiftmailerServiceProvider, [
+    'swiftmailer.options' => [
+        'host' => 'host',
+        'port' => '25',
+        'username' => '9e098d23e21378c4a1895166071bbb6a',
+        'password' => '07a5156058ec26f8e7bf36bd4f8c3d30',
+        'encryption' => null,
+        'auth_mode' => null
     ]
 ]);
 

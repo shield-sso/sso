@@ -16,6 +16,11 @@ ShieldSSO\Entity\User:
       length: 255
       unique: true
       nullable: false
+    active:
+      name: active
+      type: string
+      length: 255
+      nullable: true
     password:
       name: password
       type: string

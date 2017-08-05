@@ -14,7 +14,9 @@
     "symfony/yaml": "^3.2",
     "marvin_b8/psr-7-service-provider": "2.0.x-dev",
     "symfony/security": "^3.3",
-    "symfony/twig-bridge": "^3.3"
+    "symfony/twig-bridge": "^3.3",
+    "mailjet/mailjet-swiftmailer": "^1.0",
+    "ircmaxell/random-lib": "^1.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7",

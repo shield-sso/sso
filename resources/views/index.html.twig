@@ -3,6 +3,14 @@
 {% block body %}
     <h1>ShieldSSO</h1>
     <p>Single Sign On</p>
+
+    {% for error in app.session.flashbag.get('register_success') %}
+        <div class="form-success">{{ error }}</div>
+    {% endfor %}
+    {% for error in app.session.flashbag.get('register_error') %}
+        <div class="form-error">{{ error }}</div>
+    {% endfor %}
+
     {% if is_granted('ROLE_USER') %}
         <a href="{{ path('logout') }}">Logout</a>
     {% else %}
