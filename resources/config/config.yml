@@ -1,0 +1,13 @@
+twig:
+  views_path: 'resources/views'
+
+doctrine:
+  proxies_path: 'var/cache/proxy'
+  mapping:
+    type: 'simple_yml'
+    namespace: 'ShieldSSO\Entity'
+    path: 'resources/config/mapping'
+
+oauth:
+  private_key_path: 'resources/keys/private.key'
+  public_key_path: 'resources/keys/public.key'
