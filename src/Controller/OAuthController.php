@@ -37,7 +37,7 @@ class OAuthController
             $user = $token->getUser();
 
             $oauthUser = new OAuthUser;
-            $oauthUser->setLogin($user->getLogin());
+            $oauthUser->setLogin($user->getUsername());
             $authRequest->setUser($oauthUser);
             $authRequest->setAuthorizationApproved(true);
 
