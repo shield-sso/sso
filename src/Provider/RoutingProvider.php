@@ -35,7 +35,7 @@ class RoutingProvider implements ControllerProviderInterface
 
         $controllers->get('/login', IndexController::class . '::loginAction')->bind('login');
 
-        $controllers->get('/data', ApiController::class . '::dataAction')->bind('data')->before(
+        $controllers->get('/api/data', ApiController::class . '::dataAction')->bind('api-data')->before(
             function (Request $request, Application $app) {
                 try {
                     /** @var ResourceServer $server */

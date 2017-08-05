@@ -78,6 +78,14 @@ $app->register(new SecurityServiceProvider(), [
             'anonymous' => true,
             'pattern' => '^/login'
         ],
+        'token' => [
+            'anonymous' => true,
+            'pattern' => '^/token'
+        ],
+        'api' => [
+            'anonymous' => true,
+            'pattern' => '^/api'
+        ],
         'firewall' => [
             'pattern' => '^/',
             'form' => ['login_path' => '/login', 'check_path' => '/check'],
