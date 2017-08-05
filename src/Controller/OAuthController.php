@@ -33,8 +33,9 @@ class OAuthController
             $server = $app['oauth.server'];
             $authRequest = $server->validateAuthorizationRequest($request);
 
-            $userRepository = $app['repository.user'];
-            $user = $userRepository->getById(1);
+            $token = $app['security.token_storage']->getToken();
+            $user = $token->getUser();
+
             $oauthUser = new OAuthUser;
             $oauthUser->setLogin($user->getLogin());
             $authRequest->setUser($oauthUser);
