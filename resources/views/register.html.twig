@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>ShieldSSO</h1>
+    <p>Register</p>
+
+    {% for error in app.session.flashbag.get('register_error') %}
+        <div class="form-error">{{ error }}</div>
+    {% endfor %}
+
+    <form action="{{ path('register') }}" method="post">
+        <div><input type="email" name="email" placeholder="email" value="{{ email }}"></div>
+        <div><input type="password" name="password" placeholder="password"></div>
+        <div><input type="password" name="repeat_password" placeholder="repeat password"></div>
+        <div><input type="submit"></div>
+    </form>
+{% endblock %}

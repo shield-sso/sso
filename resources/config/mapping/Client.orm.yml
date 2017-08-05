@@ -1,0 +1,37 @@
+ShieldSSO\Entity\Client:
+  type: entity
+  table: sso_oauth_client
+  repositoryClass: ShieldSSO\Repository\ClientRepository
+
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+
+  fields:
+    name:
+      name: name
+      type: string
+      length: 255
+      unique: true
+      nullable: false
+    secret:
+      name: secret
+      type: string
+      length: 255
+      nullable: false
+    redirectUri:
+      name: redirect_uri
+      type: string
+      length: 255
+      unique: true
+      nullable: false
+
+  oneToMany:
+    accessTokens:
+      targetEntity: AccessToken
+      mappedBy: client
+    authorizationCodes:
+      targetEntity: AuthorizationCode
+      mappedBy: client

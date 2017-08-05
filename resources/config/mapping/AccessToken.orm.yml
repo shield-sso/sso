@@ -1,0 +1,61 @@
+ShieldSSO\Entity\AccessToken:
+  type: entity
+  table: sso_oauth_access_token
+  repositoryClass: ShieldSSO\Repository\AccessTokenRepository
+
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+
+  fields:
+    code:
+      name: code
+      type: string
+      length: 255
+      unique: true
+      nullable: false
+    expiryDateTime:
+      name: expiry_date_time
+      type: datetime
+      nullable: false
+    revoked:
+      name: revoked
+      type: boolean
+      nullable: false
+
+  oneToOne:
+    refreshToken:
+      targetEntity: RefreshToken
+      inversedBy: accessToken
+      joinColumn:
+        name: refresh_token_id
+        referencedColumnName: id
+
+  manyToOne:
+    user:
+      targetEntity: User
+      inversedBy: accessTokens
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+    client:
+      targetEntity: Client
+      inversedBy: accessTokens
+      joinColumn:
+        name: client_id
+        referencedColumnName: id
+
+  manyToMany:
+    scopes:
+      targetEntity: Scope
+      inversedBy: accessTokens
+      joinTable:
+        name: sso_oauth_access_token_scope
+        joinColumns:
+          access_token_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          scope_id:
+            referencedColumnName: id
