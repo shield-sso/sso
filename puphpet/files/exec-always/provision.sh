@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-cd /var/www/
-
-composer install
-
 cd /var/www/resources/keys
 
 if ! [ -e private.key ]
