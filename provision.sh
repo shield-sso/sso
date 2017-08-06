@@ -16,3 +16,4 @@ then
 fi
 
 php ./bin/console.php migrations:migrate -n
+php ./bin/fixture.php

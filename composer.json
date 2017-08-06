@@ -17,11 +17,11 @@
     "symfony/twig-bridge": "^3.3",
     "mailjet/mailjet-swiftmailer": "^1.0",
     "ircmaxell/random-lib": "^1.2",
-    "kurl/silex-doctrine-migrations-provider": "^0.3.0"
+    "kurl/silex-doctrine-migrations-provider": "^0.3.0",
+    "doctrine/data-fixtures": "^1.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7",
-    "doctrine/data-fixtures": "^1.2",
     "heroku/heroku-buildpack-php": "dev-master"
   },
   "autoload": {
