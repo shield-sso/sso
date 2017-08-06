@@ -22,3 +22,7 @@ if ! [ -e parameters.yml ]
 then
     cp parameters.dist parameters.yml
 fi
+
+cd /var/www
+
+./bin/console migrations:migrate -n
