@@ -1,24 +1,18 @@
 #!/usr/bin/env bash
 
-cd /var/www/resources/keys
-
-if ! [ -e private.key ]
+if ! [ -e ./resources/keys/private.key ]
 then
-    openssl genrsa -out private.key 1024
+    openssl genrsa -out ./resources/keys/private.key 1024
 fi
 
-if ! [ -e public.key ]
+if ! [ -e ./resources/keys/public.key ]
 then
-    openssl rsa -in private.key -pubout -out public.key
+    openssl rsa -in ./resources/keys/private.key -pubout -out ./resources/keys/public.key
 fi
 
-cd /var/www/resources/config
-
-if ! [ -e parameters.yml ]
+if ! [ -e ./resources/config/parameters.yml ]
 then
-    cp parameters.dist parameters.yml
+    cp ./resources/config/parameters.dist ./resources/config/parameters.yml
 fi
 
-cd /var/www
-
-./bin/console.php migrations:migrate -n
+php ./bin/console.php migrations:migrate -n
