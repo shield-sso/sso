@@ -35,7 +35,6 @@ if (file_exists(BASE_PATH . 'resources/config/parameters.yml')) {
 }
 
 $app->register(new DoctrineServiceProvider, ['db.options' => $app['parameters']['database']]);
-
 $app->register(
     new DoctrineMigrationsProvider,
     [
