@@ -6,11 +6,14 @@ define('BASE_PATH', __DIR__ . '/../');
 
 require_once BASE_PATH . 'vendor/autoload.php';
 
-use Kurl\Silex\Provider\DoctrineMigrationsProvider;
+use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Symfony\Component\Console\Application as Console;
 use ShieldSSO\Application;
 use Symfony\Component\Yaml\Yaml;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
 $app = new Application;
 $console = new Console;
@@ -36,19 +39,24 @@ if (getenv('DATABASE_URL') === false) {
 }
 
 $app->register(new DoctrineServiceProvider, ['db.options' => $app['parameters']['database']]);
-$app->register(
-    new DoctrineMigrationsProvider,
-    [
-        'migrations.directory' => __DIR__ . '/../migrations',
-        'migrations.name' => 'SSO Migrations',
-        'migrations.namespace' => 'ShieldSSO\Migrations',
-        'migrations.table_name' => 'sso_migrations',
+$app->register(new DoctrineOrmServiceProvider, [
+    'orm.proxies_dir' => BASE_PATH . $app['config']['doctrine']['proxies_path'],
+    'orm.em.options' => [
+        'mappings' => [
+            [
+                'type' => $app['config']['doctrine']['mapping']['type'],
+                'namespace' => $app['config']['doctrine']['mapping']['namespace'],
+                'path' => BASE_PATH . $app['config']['doctrine']['mapping']['path'],
+            ]
+        ]
     ]
-);
+]);
 
 $app->boot();
 
-$console->setHelperSet($app['migrations.em_helper_set']);
-$console->addCommands($app['migrations.commands']);
+$loader = new Loader();
+$loader->loadFromDirectory(__DIR__ . '/../src/Fixture');
 
-$console->run();
+$purger = new ORMPurger();
+$executor = new ORMExecutor($app['orm.em'], $purger);
+$executor->execute($loader->getFixtures());
