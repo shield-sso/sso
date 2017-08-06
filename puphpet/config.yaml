@@ -135,7 +135,12 @@ nginx:
             www_root: /var/www/web
             listen_port: '80'
             client_max_body_size: 1m
-            ssl: '0'
+            ssl: '1'
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_port: '443'
+            rewrite_to_https: '1'
+            spdy: '1'
             locations:
                 nxvl_aswfatyn921g:
                     www_root: ''
