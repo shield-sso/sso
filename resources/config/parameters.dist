@@ -10,7 +10,3 @@ oauth:
   authorization_code_ttl: 'PT10M'
   access_token_ttl: 'PT1H'
   refresh_token_ttl: 'P1M'
-
-mailjet:
-    api_key: ''
-    secret_key: ''
