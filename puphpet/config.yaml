@@ -19,13 +19,13 @@ vagrantfile:
                         check_guest_tools: 0
                         update_guest_tools: 0
                 machines:
-                    vflm_3unm3dgncomn:
+                    vflm_dalkyvf2ba2s:
                         id: sso
                         hostname: sso
                         network:
                             private_network: 192.168.56.107
                             forwarded_port:
-                                vflmnfp_xhw3r9jrgvdj:
+                                vflmnfp_uld6jtp6ybgl:
                                     host: '9056'
                                     guest: '22'
                         memory: '1024'
@@ -40,7 +40,7 @@ vagrantfile:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_whlm3nol6lhz:
+            vflsf_nj10ax3i7yxs:
                 owner: www-data
                 group: www-data
                 source: ./
@@ -128,7 +128,7 @@ nginx:
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_s62knmlf4it4:
+        nxv_5s9jaf1afnwy:
             server_name: sso.local
             server_aliases:
                 - www.sso.local
@@ -142,7 +142,7 @@ nginx:
             rewrite_to_https: '1'
             spdy: '1'
             locations:
-                nxvl_aswfatyn921g:
+                nxvl_u2s44iz4o8ka:
                     www_root: ''
                     location: /
                     autoindex: 'off'
@@ -158,7 +158,7 @@ nginx:
                     fastcgi_split_path: ''
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_zvagvnm5z2j7:
+                nxvl_12a5u9vsuv1j:
                     www_root: ''
                     location: '~ \.php$'
                     autoindex: 'off'
@@ -192,7 +192,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_elni77c8bu38:
+        av_8q60wi2gthw2:
             servername: awesome.dev
             serveraliases:
                 - www.awesome.dev
@@ -209,7 +209,7 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_47345m9sboyy:
+                avd_6u12z5hgqzwy:
                     path: /var/www/awesome
                     directoryindex: ''
                     options:
@@ -250,7 +250,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_q3cod53ln9ge:
+        phpfp_7xx7ucjhh9ab:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -293,7 +293,7 @@ drush:
 ruby:
     install: '1'
     versions:
-        rv_07ctboqdgyr5:
+        rv_ph1srb3vtvf2:
             default: '1'
             bundler: '1'
             version: 2.3.1
@@ -317,15 +317,15 @@ mariadb:
         root_password: '123'
         override_options: {  }
     users:
-        mariadbnu_4f556ja3xkq0:
+        mariadbnu_jxvy4tx4e5cf:
             name: dbuser
             password: '123'
     databases:
-        mariadbnd_ku9qab3hogzx:
+        mariadbnd_9tm2fdi0bnwe:
             name: dbname
             sql: ''
     grants:
-        mariadbng_9s5u4ld1i1w1:
+        mariadbng_zgsfpe1dm1ka:
             user: dbuser
             table: '*.*'
             privileges:
@@ -337,15 +337,15 @@ mysql:
         root_password: '123'
         override_options: {  }
     users:
-        mysqlnu_b15x75tymyf7:
+        mysqlnu_0w14ptotbfy5:
             name: dbuser
             password: '123'
     databases:
-        mysqlnd_hstdgczehahm:
+        mysqlnd_fabyz9xau9ni:
             name: dbname
             sql: ''
     grants:
-        mysqlng_4e7i7he5mf3r:
+        mysqlng_75v08unljn54:
             user: dbuser
             table: '*.*'
             privileges:
@@ -359,16 +359,16 @@ postgresql:
         server:
             postgres_password: '123'
     databases:
-        postsqlnd_0fjm0bmspy81:
+        postsqlnd_j63qcbx8tuxi:
             dbname: sso
             owner: postgres
     users:
-        postsqlnu_9byro4pxl7mi:
+        postsqlnu_zerinlml5l5n:
             username: postgres
             password: '123'
             superuser: '1'
     grants:
-        postsqlng_pog85v9h2k6f:
+        postsqlng_3gjuvd7qccvh:
             role: postgres
             db: sso
             privilege:
@@ -420,7 +420,7 @@ elastic_search:
         version: 2.3.1
         java_install: true
     instances:
-        esi_pyqt5085odv4:
+        esi_v6c1vlnnio5o:
             name: es-01
 solr:
     install: '0'
