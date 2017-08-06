@@ -20,6 +20,9 @@ use ShieldSSO\Provider\OAuthServerProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\SwiftmailerServiceProvider;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\Yaml\Yaml;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
@@ -86,6 +89,23 @@ $app->register(new SecurityServiceProvider(), [
         ]
     ]
 ]);
+
+$authHandler = new class implements AuthenticationSuccessHandlerInterface {
+    public $app;
+
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
+    {
+        $uri = $this->app['session']->getFlashBag()->get('auth_redirect');
+        if (isset($uri[0])) {
+            return $this->app->redirect((string) $uri[0]);
+        }
+
+        return $this->app->redirect($this->app['url_generator']->generate('homepage'));
+    }
+};
+$authHandler->app = $app;
+
+$app['security.authentication.success_handler.firewall'] = $authHandler;
 
 $app->register(new SwiftmailerServiceProvider);
 

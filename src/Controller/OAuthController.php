@@ -32,6 +32,8 @@ class OAuthController
             /** @var UserRepositoryInterface $userRepository */
 
             if (!$app['security.authorization_checker']->isGranted('ROLE_USER')) {
+                $app['session']->getFlashBag()->add('auth_redirect', $request->getUri());
+
                 return $app->redirect($app['url_generator']->generate('login'));
             }
 
