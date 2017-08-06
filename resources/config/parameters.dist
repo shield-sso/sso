@@ -1,10 +1,10 @@
 database:
-  driver: 'pdo_mysql'
+  driver: 'pdo_pgsql'
   host: '127.0.0.1'
   port: '5432'
-  dbname: 'shieldsso_sso'
-  user: 'root'
-  password: ''
+  dbname: 'sso'
+  user: 'postgres'
+  password: '123'
 
 oauth:
   authorization_code_ttl: 'PT10M'
