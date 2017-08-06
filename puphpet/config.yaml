@@ -233,6 +233,7 @@ php:
             - intl
             - xml
             - mbstring
+            - zip
             - sqlite
         pear: {  }
         pecl: {  }
