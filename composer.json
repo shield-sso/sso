@@ -32,7 +32,7 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "./provision.sh"
+      "bash provision.sh"
     ]
   },
   "extra": {
