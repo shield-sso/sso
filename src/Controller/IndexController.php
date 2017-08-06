@@ -11,7 +11,9 @@ use ShieldSSO\Application;
 use ShieldSSO\Contract\Repository\UserRepositoryInterface;
 use ShieldSSO\Entity\User;
 use Swift_Events_SimpleEventDispatcher;
+use Swift_Mailer;
 use Swift_Message;
+use Swift_SmtpTransport;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -90,18 +92,6 @@ class IndexController
                 $user->setPassword(password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]));
                 $user->setActive($activationHash);
 
-                if (isset($app['parameters']['mailjet']['api_key'])) {
-                    $apiKey = $app['parameters']['mailjet']['api_key'];
-                } else {
-                    $apiKey = getenv('MAILJET_API_KEY');
-                }
-
-                if (isset($app['parameters']['mailjet']['secret_key'])) {
-                    $secretKey = $app['parameters']['mailjet']['secret_key'];
-                } else {
-                    $secretKey = getenv('MAILJET_SECRET_KEY');
-                }
-
                 /** @var EntityManagerInterface $entityManager */
                 $entityManager = $app['orm.em'];
                 $entityManager->persist($user);
@@ -113,11 +103,23 @@ class IndexController
                     UrlGeneratorInterface::ABSOLUTE_URL
                 );
 
-                $transport = new MailjetTransport(new Swift_Events_SimpleEventDispatcher(), $apiKey, $secretKey);
+                if (getenv('APP_ENV') === 'dev') {
+                    $transport = new Swift_SmtpTransport('localhost', 1025);
+                    $transport = new Swift_Mailer($transport);
+                } else {
+                    $transport = new MailjetTransport(
+                        new Swift_Events_SimpleEventDispatcher(),
+                        getenv('MAILJET_API_KEY'),
+                        getenv('MAILJET_SECRET_KEY')
+                    );
+                }
+
                 $message = new Swift_Message(
                     'Shield SSO',
                     "<p>Activation link: <a href=\"{$activationLink}\">{$activationLink}</a></p>",
-                    'text/html');
+                    'text/html'
+                );
+
                 $message
                     ->addTo($email)
                     ->addFrom('shieldsso@danieliwaniec.com', 'Shield SSO')

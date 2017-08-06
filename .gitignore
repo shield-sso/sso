@@ -8,3 +8,4 @@
 !/puphpet/files/dot/ssh/insecure_private_key
 /cli-config.php
 html/
+puphpet/config-custom.yaml

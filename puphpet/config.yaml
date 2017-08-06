@@ -19,13 +19,13 @@ vagrantfile:
                         check_guest_tools: 0
                         update_guest_tools: 0
                 machines:
-                    vflm_rhjus7mr1x3e:
+                    vflm_3unm3dgncomn:
                         id: sso
                         hostname: sso
                         network:
                             private_network: 192.168.56.107
                             forwarded_port:
-                                vflmnfp_idrq7l3k5wua:
+                                vflmnfp_xhw3r9jrgvdj:
                                     host: '9056'
                                     guest: '22'
                         memory: '1024'
@@ -40,7 +40,9 @@ vagrantfile:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_ype6ey8ttqdh:
+            vflsf_whlm3nol6lhz:
+                owner: www-data
+                group: www-data
                 source: ./
                 target: /var/www
                 sync_type: default
@@ -60,8 +62,6 @@ vagrantfile:
                         - .vagrant/
                         - .git/
                     auto: 'true'
-                owner: www-data
-                group: www-data
         usable_port_range:
             start: 10200
             stop: 10500
@@ -105,6 +105,13 @@ locale:
 firewall:
     install: '1'
     rules: {  }
+resolv:
+    install: '1'
+    nameservers:
+        - 8.8.8.8
+        - 8.8.4.4
+    domainname: ''
+    searchpath: {  }
 cron:
     install: '1'
     jobs: {  }
@@ -121,7 +128,7 @@ nginx:
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_n2r2x1fwuxa7:
+        nxv_s62knmlf4it4:
             server_name: sso.local
             server_aliases:
                 - www.sso.local
@@ -129,17 +136,12 @@ nginx:
             listen_port: '80'
             client_max_body_size: 1m
             ssl: '0'
-            ssl_cert: ''
-            ssl_key: ''
-            ssl_port: '443'
-            ssl_protocols: ''
-            ssl_ciphers: ''
-            rewrite_to_https: '1'
-            spdy: '1'
             locations:
-                nxvl_ijr8d0xrq7ng:
+                nxvl_aswfatyn921g:
                     www_root: ''
                     location: /
+                    autoindex: 'off'
+                    internal: 'false'
                     index_files:
                         - index.php
                     try_files:
@@ -151,9 +153,11 @@ nginx:
                     fastcgi_split_path: ''
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_6w3p6f1tqlfc:
+                nxvl_zvagvnm5z2j7:
                     www_root: ''
                     location: '~ \.php$'
+                    autoindex: 'off'
+                    internal: 'false'
                     try_files:
                         - $uri
                         - $uri/
@@ -183,27 +187,26 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_4fauz0q6s7o3:
+        av_elni77c8bu38:
             servername: awesome.dev
             serveraliases:
                 - www.awesome.dev
             docroot: /var/www/awesome
             port: '80'
-            setenv:
-                - 'APP_ENV dev'
             setenvif:
                 - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
             custom_fragment: ''
             ssl: '0'
-            ssl_cert: ''
-            ssl_key: ''
-            ssl_chain: ''
-            ssl_certs_dir: ''
+            ssl_cert: LETSENCRYPT
+            ssl_key: LETSENCRYPT
+            ssl_chain: LETSENCRYPT
+            ssl_certs_dir: LETSENCRYPT
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_pe2jbhszamcl:
+                avd_47345m9sboyy:
                     path: /var/www/awesome
+                    directoryindex: ''
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -213,17 +216,12 @@ apache:
                     require:
                         - 'all granted'
                     custom_fragment: ''
-                    files_match:
-                        avdfm_ag2olryl7gj1:
-                            path: \.php$
-                            sethandler: 'proxy:fcgi://127.0.0.1:9000'
-                            custom_fragment: ''
-                            provider: filesmatch
                     provider: directory
 letsencrypt:
     install: '1'
     settings:
         email: ''
+        webserver_service: ''
     domains: {  }
 php:
     install: '1'
@@ -246,7 +244,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_6np17e5xm9i0:
+        phpfp_q3cod53ln9ge:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -289,7 +287,7 @@ drush:
 ruby:
     install: '1'
     versions:
-        rv_tof5xdv8owbr:
+        rv_07ctboqdgyr5:
             default: '1'
             bundler: '1'
             version: 2.3.1
@@ -306,37 +304,22 @@ nodejs:
     settings:
         version: '6'
     npm_packages: {  }
-hhvm:
-    install: '0'
-    composer: '1'
-    composer_home: ''
-    settings: {  }
-    server_ini:
-        hhvm.server.host: 127.0.0.1
-        hhvm.server.port: '9000'
-        hhvm.log.use_log_file: '1'
-        hhvm.log.file: /var/log/hhvm/error.log
-    php_ini:
-        display_errors: 'On'
-        error_reporting: '-1'
-        date.timezone: UTC
 mariadb:
     install: '0'
     settings:
         version: '10.1'
         root_password: '123'
         override_options: {  }
-    adminer: 0
     users:
-        mariadbnu_et8hehx2bprr:
+        mariadbnu_4f556ja3xkq0:
             name: dbuser
             password: '123'
     databases:
-        mariadbnd_5suv4omygn6l:
+        mariadbnd_ku9qab3hogzx:
             name: dbname
             sql: ''
     grants:
-        mariadbng_0ljdusfy878z:
+        mariadbng_9s5u4ld1i1w1:
             user: dbuser
             table: '*.*'
             privileges:
@@ -347,17 +330,16 @@ mysql:
         version: '5.7'
         root_password: '123'
         override_options: {  }
-    adminer: 0
     users:
-        mysqlnu_876ax5dvqcd9:
+        mysqlnu_b15x75tymyf7:
             name: dbuser
             password: '123'
     databases:
-        mysqlnd_wy7zzkrxn72v:
+        mysqlnd_hstdgczehahm:
             name: dbname
             sql: ''
     grants:
-        mysqlng_l9dh5hurqtk6:
+        mysqlng_4e7i7he5mf3r:
             user: dbuser
             table: '*.*'
             privileges:
@@ -370,10 +352,21 @@ postgresql:
             version: '9.6'
         server:
             postgres_password: '123'
-    databases: {  }
-    users: {  }
-    grants: {  }
-    adminer: 0
+    databases:
+        postsqlnd_0fjm0bmspy81:
+            dbname: sso
+            owner: postgres
+    users:
+        postsqlnu_9byro4pxl7mi:
+            username: postgres
+            password: '123'
+            superuser: '1'
+    grants:
+        postsqlng_pog85v9h2k6f:
+            role: postgres
+            db: sso
+            privilege:
+                - ALL
 mongodb:
     install: '0'
     settings:
@@ -388,10 +381,9 @@ redis:
         port: '6379'
 sqlite:
     install: '0'
-    adminer: 0
     databases: {  }
 mailhog:
-    install: '0'
+    install: '1'
     settings:
         smtp_ip: 0.0.0.0
         smtp_port: 1025
@@ -422,10 +414,11 @@ elastic_search:
         version: 2.3.1
         java_install: true
     instances:
-        esi_ka731kipu9fz:
+        esi_pyqt5085odv4:
             name: es-01
 solr:
     install: '0'
     settings:
         version: 5.5.2
         port: '8984'
+

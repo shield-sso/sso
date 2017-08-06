@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+./bin/console migrations:migrate -n
+
 cd resources/keys
 
 openssl genrsa -out private.key 1024
