@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-./bin/console migrations:migrate -n
+./bin/console.php migrations:migrate -n
 
 cd resources/keys
 
