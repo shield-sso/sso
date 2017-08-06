@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mailjet\MailjetSwiftMailer\SwiftMailer\MailjetTransport;
 use RandomLib\Factory;
 use ShieldSSO\Application;
+use ShieldSSO\Contract\Entity\UserInterface;
 use ShieldSSO\Contract\Repository\UserRepositoryInterface;
 use ShieldSSO\Entity\User;
 use Swift_Events_SimpleEventDispatcher;
@@ -79,6 +80,14 @@ class IndexController
 
             if ($password != $repeatedPassword) {
                 $app['session']->getFlashBag()->add('register_error', 'Passwords don\'t match');
+                $valid = false;
+            }
+
+            /** @var UserRepositoryInterface $userRepository */
+            $userRepository = $app['repository.user'];
+            $user = $userRepository->getByLogin($email);
+            if ($user instanceof UserInterface) {
+                $app['session']->getFlashBag()->add('register_error', 'Email is already used');
                 $valid = false;
             }
 
