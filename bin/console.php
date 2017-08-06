@@ -16,7 +16,7 @@ $app = new Application;
 $console = new Console;
 
 $app['config'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/config.yml'));
-if (file_exists(BASE_PATH . 'resources/config/parameters.yml')) {
+if (getenv('APP_ENV') === 'dev') {
     $app['parameters'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
 } else {
     $dbConfig = parse_url(getenv('DATABASE_URL'));
@@ -42,7 +42,7 @@ $app->register(
         'migrations.directory' => __DIR__ . '/../migrations',
         'migrations.name' => 'SSO Migrations',
         'migrations.namespace' => 'ShieldSSO\Migrations',
-        'migrations.table_name' => 'soo_migrations',
+        'migrations.table_name' => 'sso_migrations',
     ]
 );
 
