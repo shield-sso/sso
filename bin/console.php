@@ -20,6 +20,7 @@ if (file_exists(BASE_PATH . 'resources/config/parameters.yml')) {
     $app['parameters'] = Yaml::parse(file_get_contents(BASE_PATH . 'resources/config/parameters.yml'));
 } else {
     $dbConfig = parse_url(getenv('DATABASE_URL'));
+
     $parameters = [
         'database' => [
             'driver' => 'pdo_pgsql',
