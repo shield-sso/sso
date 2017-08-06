@@ -30,6 +30,11 @@
       "ShieldSSO\\Test\\": "tests/"
     }
   },
+  "scripts": {
+    "post-install-cmd": [
+      "./provision.sh"
+    ]
+  },
   "extra": {
     "heroku": {
       "document-root": "web",
