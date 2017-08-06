@@ -21,4 +21,4 @@ fi
 
 cd /var/www
 
-./bin/console migrations:migrate -n
+./bin/console.php migrations:migrate -n
