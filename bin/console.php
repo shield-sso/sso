@@ -42,7 +42,7 @@ $app->register(
         'migrations.directory' => __DIR__ . '/../migrations',
         'migrations.name' => 'SSO Migrations',
         'migrations.namespace' => 'ShieldSSO\Migrations',
-        'migrations.table_name' => 'soo_migrations',
+        'migrations.table_name' => 'sso_migrations',
     ]
 );
 
