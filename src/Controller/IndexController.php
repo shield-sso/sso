@@ -36,6 +36,10 @@ class IndexController
      */
     public function loginAction(Application $app, Request $request): Response
     {
+        if ($app['security.authorization_checker']->isGranted('ROLE_USER')) {
+            return $app->redirect($app['url_generator']->generate('homepage'));
+        }
+
         return $app->render('login.html.twig', [
             'error' => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username')
@@ -50,6 +54,10 @@ class IndexController
      */
     public function registerAction(Application $app, Request $request): Response
     {
+        if ($app['security.authorization_checker']->isGranted('ROLE_USER')) {
+            return $app->redirect($app['url_generator']->generate('homepage'));
+        }
+
         $email = $request->get('email');
         $password = $request->get('password');
         $repeatedPassword = $request->get('repeat_password');

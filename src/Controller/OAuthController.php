@@ -10,6 +10,7 @@ use ShieldSSO\OAuth\Entity\User as OAuthUser;
 use ShieldSSO\Contract\Repository\UserRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Zend\Diactoros\Response;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
@@ -20,15 +21,19 @@ class OAuthController
      * @param Application $app
      * @param ServerRequestInterface $request
      *
-     * @return ResponseInterface
+     * @return ResponseInterface|RedirectResponse
      */
-    public function authorizeAction(Application $app, ServerRequestInterface $request): ResponseInterface
+    public function authorizeAction(Application $app, ServerRequestInterface $request)
     {
         $response = new Response;
 
         try {
             /** @var AuthorizationServer $server */
             /** @var UserRepositoryInterface $userRepository */
+
+            if (!$app['security.authorization_checker']->isGranted('ROLE_USER')) {
+                return $app->redirect($app['url_generator']->generate('login'));
+            }
 
             $server = $app['oauth.server'];
             $authRequest = $server->validateAuthorizationRequest($request);
@@ -39,6 +44,7 @@ class OAuthController
             $oauthUser = new OAuthUser;
             $oauthUser->setLogin($user->getUsername());
             $authRequest->setUser($oauthUser);
+
             $authRequest->setAuthorizationApproved(true);
 
             return $server->completeAuthorizationRequest($authRequest, $response);
