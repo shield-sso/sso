@@ -36,7 +36,7 @@ class ClientFixture implements FixtureInterface
         $client = new Client();
         $client->setName('client-a');
         $client->setSecret(password_hash($secret, PASSWORD_BCRYPT, ['cost' => 12]));
-        $client->setRedirectUri($secret . '/login/check-sso');
+        $client->setRedirectUri($clientAUrl . '/login/check-sso');
         $manager->persist($client);
 
         $manager->flush();
