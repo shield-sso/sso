@@ -51,6 +51,7 @@ class RoutingProvider implements ControllerProviderInterface
                     $user = $userRepository->getByLogin($psrRequest->getAttribute('oauth_user_id'));
 
                     $request->attributes->set('user', $user);
+                    $request->attributes->set('scopes', $psrRequest->getAttribute('oauth_scopes'));
                 } catch (OAuthServerException $exception) {
                     return new JsonResponse([
                         'error' => $exception->getErrorType(),

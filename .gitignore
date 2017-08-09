@@ -9,3 +9,5 @@
 /cli-config.php
 html/
 puphpet/config-custom.yaml
+
+var/cache/proxy/
