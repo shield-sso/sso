@@ -23,6 +23,17 @@ class ClientFixture implements FixtureInterface
         $client->setRedirectUri('https://developers.google.com/oauthplayground');
         $manager->persist($client);
 
+        $secret = getenv('FIXTURE_CLIENT_A_SECRET');
+        if (empty($secret)) {
+            $secret = 'secret_a';
+        }
+
+        $client = new Client();
+        $client->setName('client-a');
+        $client->setSecret(password_hash($secret, PASSWORD_BCRYPT, ['cost' => 12]));
+        $client->setRedirectUri('http://client-a.local/login/check-sso');
+        $manager->persist($client);
+
         $manager->flush();
     }
 }

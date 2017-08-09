@@ -23,7 +23,8 @@ class ApiController
         return $app->json(
             [
                 'id' => $user->getId(),
-                'login' => $user->getLogin()
+                'login' => $user->getLogin(),
+                'scopes' => $request->attributes->get('scopes')
             ]
         );
     }
