@@ -30,7 +30,7 @@ class ClientFixture implements FixtureInterface
 
         $clientAUrl = getenv('FIXTURE_CLIENT_A_URL');
         if (empty($clientAUrl)) {
-            $secret = 'http://client-a.local';
+            $clientAUrl = 'http://client-a.local';
         }
 
         $client = new Client();
