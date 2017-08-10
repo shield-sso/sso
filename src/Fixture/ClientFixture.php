@@ -39,6 +39,22 @@ class ClientFixture implements FixtureInterface
         $client->setRedirectUri($clientAUrl . '/login/check-sso');
         $manager->persist($client);
 
+        $secret = getenv('FIXTURE_CLIENT_B_SECRET');
+        if (empty($secret)) {
+            $secret = 'secret_b';
+        }
+
+        $clientAUrl = getenv('FIXTURE_CLIENT_B_URL');
+        if (empty($clientAUrl)) {
+            $clientAUrl = 'http://client-b.local';
+        }
+
+        $client = new Client();
+        $client->setName('client-b');
+        $client->setSecret(password_hash($secret, PASSWORD_BCRYPT, ['cost' => 12]));
+        $client->setRedirectUri($clientAUrl . '/login/check-sso');
+        $manager->persist($client);
+
         $manager->flush();
     }
 }
