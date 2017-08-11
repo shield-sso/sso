@@ -148,7 +148,7 @@ class IndexController
 
                 $app['session']->getFlashBag()->add(
                     'register_success',
-                    'User registered. Check email for activation link.'
+                    'User registered - check email for activation link'
                 );
 
                 return $app->redirect($app['url_generator']->generate('homepage'));
@@ -184,12 +184,12 @@ class IndexController
 
             $app['session']->getFlashBag()->add(
                 'register_success',
-                'User activated.'
+                'User activated'
             );
         } else {
             $app['session']->getFlashBag()->add(
                 'register_error',
-                'Activation error.'
+                'Activation error'
             );
         }
 

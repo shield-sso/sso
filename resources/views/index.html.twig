@@ -3,11 +3,11 @@
 {% block body %}
     <div class="mt-3"><h1>Shield SSO</h1></div>
 
-    {% for error in app.session.flashbag.get('register_success') %}
-        <div class="form-success">{{ error }}</div>
+    {% for success in app.session.flashbag.get('register_success') %}
+        <div class="alert alert-success" role="alert">{{ success }}</div>
     {% endfor %}
     {% for error in app.session.flashbag.get('register_error') %}
-        <div class="form-error">{{ error }}</div>
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endfor %}
 
     {% if is_granted('ROLE_USER') %}
