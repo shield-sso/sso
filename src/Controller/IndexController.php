@@ -89,7 +89,7 @@ class IndexController
             }
 
             if ($password != $repeatedPassword) {
-                $app['session']->getFlashBag()->add('register_error', 'Passwords don\'t match');
+                $app['session']->getFlashBag()->add('register_error', 'Passwords aren\'t the same');
                 $valid = false;
             }
 
