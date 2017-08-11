@@ -135,7 +135,7 @@ class IndexController
 
                 $message = new Swift_Message(
                     'Shield SSO',
-                    "<p>Activation link: <a href=\"{$activationLink}\">{$activationLink}</a></p>",
+                    "<h1>Shield SSO</h1><p>Activation link: <a href=\"{$activationLink}\">{$activationLink}</a></p>",
                     'text/html'
                 );
 
