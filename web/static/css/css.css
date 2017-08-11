@@ -73,3 +73,13 @@ body {
 .container {
     text-align: center;
 }
+
+a.text-link {
+    color: rgba(0,0,0,.5);
+    font-style: italic;
+}
+
+a.text-link:hover {
+    color: rgba(0,0,0,.75);
+    text-decoration: none;
+}
