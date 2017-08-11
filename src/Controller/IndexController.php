@@ -33,6 +33,16 @@ class IndexController
 
     /**
      * @param Application $app
+     *
+     * @return Response
+     */
+    public function aboutAction(Application $app): Response
+    {
+        return $app->render('about.html.twig');
+    }
+
+    /**
+     * @param Application $app
      * @param Request $request
      *
      * @return Response
@@ -79,7 +89,7 @@ class IndexController
             }
 
             if ($password != $repeatedPassword) {
-                $app['session']->getFlashBag()->add('register_error', 'Passwords don\'t match');
+                $app['session']->getFlashBag()->add('register_error', 'Passwords aren\'t the same');
                 $valid = false;
             }
 
@@ -125,7 +135,7 @@ class IndexController
 
                 $message = new Swift_Message(
                     'Shield SSO',
-                    "<p>Activation link: <a href=\"{$activationLink}\">{$activationLink}</a></p>",
+                    "<h1>Shield SSO</h1><p>Activation link: <a href=\"{$activationLink}\">{$activationLink}</a></p>",
                     'text/html'
                 );
 
@@ -138,7 +148,7 @@ class IndexController
 
                 $app['session']->getFlashBag()->add(
                     'register_success',
-                    'User registered. Check email for activation link.'
+                    'User registered - check email for activation link'
                 );
 
                 return $app->redirect($app['url_generator']->generate('homepage'));
@@ -174,12 +184,12 @@ class IndexController
 
             $app['session']->getFlashBag()->add(
                 'register_success',
-                'User activated.'
+                'User activated'
             );
         } else {
             $app['session']->getFlashBag()->add(
                 'register_error',
-                'Activation error.'
+                'Activation error'
             );
         }
 

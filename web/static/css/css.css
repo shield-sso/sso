@@ -1,7 +1,131 @@
-.form-error {
-    color: red;
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
 }
 
-.form-success {
-    color: green;
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #333;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+    padding: 60px 15px 0;
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    text-align: center;
+}
+
+.bg-dark {
+    background-color: #333 !important;
+}
+
+body {
+    color: #333 !important;
+}
+
+.footer .text-muted a {
+    color: rgba(255,255,255,.5);
+}
+
+.footer .text-muted a:hover {
+    color: rgba(255,255,255,.75);
+    text-decoration: none;
+}
+
+.footer .text-muted {
+    color: rgba(255,255,255,.5);
+}
+
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar-brand {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.navbar-nav {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.container {
+    text-align: center;
+}
+
+a.text-link {
+    color: rgba(0,0,0,.5);
+    font-style: italic;
+}
+
+a.text-link:hover {
+    color: rgba(0,0,0,.75);
+    text-decoration: none;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin .checkbox {
+    font-weight: normal;
+}
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-signin input#input-rpassword {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input#repeated-input-rpassword {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }

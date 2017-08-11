@@ -1,19 +1,24 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>ShieldSSO</h1>
-    <p>Single Sign On</p>
+    <div class="mt-3"><h1>Shield SSO</h1></div>
 
-    {% for error in app.session.flashbag.get('register_success') %}
-        <div class="form-success">{{ error }}</div>
+    {% for success in app.session.flashbag.get('register_success') %}
+        <div class="alert alert-success" role="alert">{{ success }}</div>
     {% endfor %}
     {% for error in app.session.flashbag.get('register_error') %}
-        <div class="form-error">{{ error }}</div>
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endfor %}
 
     {% if is_granted('ROLE_USER') %}
-        <a href="{{ path('logout') }}">Logout</a>
+        <p class="lead">
+            It appears that you are already logged in.
+        </p>
+        <p class="lead"><a class="btn btn-dark btn-lg" href="{{ path('logout') }}" role="button">Log out</a></p>
     {% else %}
-        <a href="{{ path('login') }}">Login</a>
+        <p class="lead">
+            It appears that you are not logged in.
+        </p>
+        <p class="lead"><a class="btn btn-dark btn-lg" href="{{ path('login') }}" role="button">Log in</a></p>
     {% endif %}
 {% endblock %}
