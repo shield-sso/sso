@@ -33,6 +33,16 @@ class IndexController
 
     /**
      * @param Application $app
+     *
+     * @return Response
+     */
+    public function aboutAction(Application $app): Response
+    {
+        return $app->render('about.html.twig');
+    }
+
+    /**
+     * @param Application $app
      * @param Request $request
      *
      * @return Response

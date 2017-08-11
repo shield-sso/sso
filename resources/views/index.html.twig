@@ -1,19 +1,26 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>ShieldSSO</h1>
-    <p>Single Sign On</p>
+    <div class="mt-3">
+        <h1>Shield SSO</h1>
+    </div>
+    <p class="lead">
+        log in
+    </p>
 
-    {% for error in app.session.flashbag.get('register_success') %}
-        <div class="form-success">{{ error }}</div>
-    {% endfor %}
-    {% for error in app.session.flashbag.get('register_error') %}
-        <div class="form-error">{{ error }}</div>
-    {% endfor %}
+    {#<h1>ShieldSSO</h1>#}
+    {#<p>Single Sign On</p>#}
 
-    {% if is_granted('ROLE_USER') %}
-        <a href="{{ path('logout') }}">Logout</a>
-    {% else %}
-        <a href="{{ path('login') }}">Login</a>
-    {% endif %}
+    {#{% for error in app.session.flashbag.get('register_success') %}#}
+    {#<div class="form-success">{{ error }}</div>#}
+    {#{% endfor %}#}
+    {#{% for error in app.session.flashbag.get('register_error') %}#}
+    {#<div class="form-error">{{ error }}</div>#}
+    {#{% endfor %}#}
+
+    {#{% if is_granted('ROLE_USER') %}#}
+    {#<a href="{{ path('logout') }}">Logout</a>#}
+    {#{% else %}#}
+    {#<a href="{{ path('login') }}">Login</a>#}
+    {#{% endif %}#}
 {% endblock %}
